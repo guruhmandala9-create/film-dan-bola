@@ -13,7 +13,13 @@ const NAV_LINKS = [
   { href: "/profil", label: "Profil" },
 ];
 
-export default function Header({ user }: { user: { email: string } | null }) {
+export default function Header({
+  user,
+  isAdmin,
+}: {
+  user: { email: string } | null;
+  isAdmin?: boolean;
+}) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -44,6 +50,14 @@ export default function Header({ user }: { user: { email: string } | null }) {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="rounded-md border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+            >
+              Admin
+            </Link>
+          )}
           {user ? (
             <form action={signOut}>
               <button
@@ -104,6 +118,15 @@ export default function Header({ user }: { user: { email: string } | null }) {
             );
           })}
           <div className="mt-2 border-t border-border pt-2">
+            {isAdmin && (
+              <Link
+                href="/admin"
+                onClick={() => setMenuOpen(false)}
+                className="block rounded-md px-3 py-2.5 text-sm font-medium text-primary hover:bg-card"
+              >
+                Panel Admin
+              </Link>
+            )}
             {user ? (
               <form action={signOut}>
                 <button

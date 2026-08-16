@@ -27,13 +27,19 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase.from("profiles").select("is_admin").eq("id", user.id).maybeSingle();
+    isAdmin = Boolean(profile?.is_admin);
+  }
+
   return (
     <html
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Header user={user ? { email: user.email ?? "" } : null} />
+        <Header user={user ? { email: user.email ?? "" } : null} isAdmin={isAdmin} />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
