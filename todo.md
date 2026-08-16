@@ -9,7 +9,7 @@ Status: **Selesai**
 - [x] Install Node.js dan siapkan editor kode
 - [x] Buat project baru dengan Next.js (git lokal sudah terinisialisasi otomatis)
 - [x] Hubungkan project ke GitHub — https://github.com/guruhmandala9-create/film-dan-bola
-- [x] Buat akun Supabase, hubungkan ke Next.js — project `qmmufzjffjfsrjkzjzvj`, client di `src/lib/supabase/client.ts`, env var terpasang di lokal & Vercel
+- [x] Buat akun Supabase, hubungkan ke Next.js — project `qmmufzjffjfsrjkzjzvj`, client di `src/lib/supabase/` (browser/server/admin), env var terpasang di lokal & Vercel
 - [x] Rancang skema tabel awal (profiles, films, matches, watchlist, comments, reactions) — lihat `supabase/schema.sql`
 - [x] Jalankan `supabase/schema.sql` di Supabase — 6 tabel terverifikasi live lewat REST API
 - [x] Deploy versi kosong/awal proyek ke hosting (Vercel) — live di https://jadwalnonton.vercel.app
@@ -32,7 +32,7 @@ Status: **Selesai**
 **Panel Admin Sederhana**
 - [x] Buat halaman admin internal (akses terbatas) untuk kelola data film & pertandingan — `/admin`, digerbang oleh `profiles.is_admin`
 - [x] Input data awal: film 1–2 kota besar, jadwal 2–3 liga populer — `supabase/migrations/0002_admin_and_seed.sql` sudah dijalankan, data terverifikasi live lewat REST API
-- [ ] Cek: sudah jadikan akunmu sendiri admin? (query di baris terakhir `0002_admin_and_seed.sql`) — perlu ini supaya bisa buka `/admin`
+- [x] Akun sudah dijadikan admin dan `/admin` terverifikasi bisa diakses
 
 **Halaman Jadwal Film & Bola**
 - [x] Daftar film tayang + filter kota/bioskop + detail film — data asli dari Supabase
@@ -44,17 +44,22 @@ Status: **Selesai**
 - [x] Diverifikasi live di https://jadwalnonton.vercel.app/login — tombol "Lanjutkan dengan Google" berhasil redirect ke halaman sign-in Google tanpa error
 
 ## Fase 3 — Personalisasi & Interaksi Pengguna
-Status: belum dimulai
+Status: **Selesai**
 
 **Watchlist & Kalender**
-- [ ] Tombol tandai pada setiap film dan pertandingan
-- [ ] Halaman "Tontonan Saya" berisi daftar yang sudah ditandai
-- [ ] Tampilan kalender gabungan (film + bola) berdasarkan jadwal yang ditandai
+- [x] Tombol tandai pada setiap film dan pertandingan — kartu daftar & halaman detail
+- [x] Halaman "Tontonan Saya" berisi daftar yang sudah ditandai — `/tontonan-saya`
+- [x] Tampilan kalender gabungan (film + bola) berdasarkan jadwal yang ditandai — `/kalender`, agenda dikelompokkan per tanggal WIB
 
 **Personalisasi & Reminder**
-- [ ] Prioritaskan homepage berdasarkan tim dan genre favorit pengguna
-- [ ] Sistem notifikasi (email/push sederhana) untuk jadwal yang ditandai
-- [ ] Atur pengiriman reminder H-1 atau 1 jam sebelum jadwal
+- [x] Prioritaskan homepage berdasarkan tim dan genre favorit pengguna — bagian "Untukmu" di Beranda
+- [x] Sistem notifikasi email untuk jadwal yang ditandai — via Resend, endpoint `/api/cron/reminders`
+- [x] Atur pengiriman reminder H-1 atau 1 jam sebelum jadwal — dipicu otomatis tiap 15 menit lewat cron-job.org, diverifikasi terkirim (1 email H-1 sukses saat uji coba)
+
+**Infrastruktur reminder yang dipasang:**
+- `supabase/migrations/0005_reminder_flags.sql` — kolom `reminded_h1`/`reminded_1h` di tabel watchlist
+- Env var di Vercel: `RESEND_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `CRON_SECRET`
+- Cron eksternal di cron-job.org memanggil `https://jadwalnonton.vercel.app/api/cron/reminders` tiap 15 menit dengan header `Authorization: Bearer <CRON_SECRET>`
 
 ## Fase 4 — Pencarian & Komunitas Dasar
 Status: belum dimulai
