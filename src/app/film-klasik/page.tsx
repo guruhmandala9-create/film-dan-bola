@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
+import WatchedButton from "@/components/WatchedButton";
 
 function splitList(value: string | null) {
   return (value ?? "")
@@ -23,6 +24,19 @@ export default async function FilmKlasikPage({
     .order("imdb_rating", { ascending: false, nullsFirst: false });
 
   const allFilms = films ?? [];
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  let watchedIds = new Set<string>();
+  if (user) {
+    const { data: watched } = await supabase
+      .from("watched_items")
+      .select("item_id")
+      .eq("user_id", user.id)
+      .eq("item_type", "classic_film");
+    watchedIds = new Set(watched?.map((w) => w.item_id));
+  }
 
   const allGenres = Array.from(new Set(allFilms.flatMap((f) => splitList(f.genre)))).sort();
   const allCountries = Array.from(new Set(allFilms.flatMap((f) => splitList(f.country)))).sort();
@@ -99,32 +113,49 @@ export default async function FilmKlasikPage({
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {filtered.map((film) => (
-            <a
+            <div
               key={film.id}
-              href={film.imdb_id ? `https://www.imdb.com/title/${film.imdb_id}/` : undefined}
-              target="_blank"
-              rel="noopener noreferrer"
               className="flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-primary"
             >
-              {film.poster_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={film.poster_url} alt={film.title} className="h-64 w-full object-cover" />
-              ) : (
-                <div className="flex h-64 w-full items-center justify-center bg-background text-sm text-muted">
-                  Tidak ada poster
-                </div>
-              )}
-              <div className="flex flex-1 flex-col p-4">
-                <p className="font-semibold">
-                  {film.title} <span className="font-normal text-muted">({film.year})</span>
-                </p>
-                <p className="mt-1 text-xs text-muted">{film.genre}</p>
-                <p className="text-xs text-muted">{film.country}</p>
-                {film.imdb_rating && (
-                  <p className="mt-auto pt-2 text-sm font-semibold text-primary">★ {film.imdb_rating} / 10 IMDb</p>
+              <a
+                href={film.imdb_id ? `https://www.imdb.com/title/${film.imdb_id}/` : undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {film.poster_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={film.poster_url} alt={film.title} className="h-64 w-full object-cover" />
+                ) : (
+                  <div className="flex h-64 w-full items-center justify-center bg-background text-sm text-muted">
+                    Tidak ada poster
+                  </div>
                 )}
+                <div className="flex flex-1 flex-col p-4 pb-0">
+                  <p className="font-semibold">
+                    {film.title} <span className="font-normal text-muted">({film.year})</span>
+                  </p>
+                  <p className="mt-1 text-xs text-muted">{film.genre}</p>
+                  <p className="text-xs text-muted">{film.country}</p>
+                  {film.imdb_rating && (
+                    <p className="pt-2 text-sm font-semibold text-primary">★ {film.imdb_rating} / 10 IMDb</p>
+                  )}
+                </div>
+              </a>
+              <div className="p-4 pt-3">
+                <WatchedButton
+                  itemType="classic_film"
+                  itemId={film.id}
+                  returnTo="/film-klasik"
+                  userId={user?.id ?? null}
+                  isWatched={watchedIds.has(film.id)}
+                  className={`w-full rounded-md border px-3 py-1.5 text-xs font-medium ${
+                    watchedIds.has(film.id)
+                      ? "border-secondary bg-secondary text-secondary-foreground"
+                      : "border-border hover:bg-background"
+                  }`}
+                />
               </div>
-            </a>
+            </div>
           ))}
           {!filtered.length && (
             <p className="col-span-full py-12 text-center text-muted">

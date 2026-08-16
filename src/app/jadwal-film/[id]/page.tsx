@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
+import WatchedButton from "@/components/WatchedButton";
 import ReactionBar from "@/components/ReactionBar";
 import CommentSection from "@/components/CommentSection";
 
@@ -24,7 +25,10 @@ export default async function FilmDetailPage({ params }: { params: Promise<{ id:
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{film.title}</h1>
           <p className="mt-1 text-muted">{film.genre?.join(", ")}</p>
         </div>
-        <WatchlistButton itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
+        <div className="flex gap-2">
+          <WatchlistButton itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
+          <WatchedButton itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
+        </div>
       </div>
 
       <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
