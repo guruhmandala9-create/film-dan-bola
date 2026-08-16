@@ -31,7 +31,7 @@ export default async function FilmDetailPage({ params }: { params: Promise<{ id:
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
+      <div className="mt-6 grid gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-2">
         <div>
           <p className="text-sm text-muted">Bioskop</p>
           <p className="font-medium">{film.cinema_name}</p>

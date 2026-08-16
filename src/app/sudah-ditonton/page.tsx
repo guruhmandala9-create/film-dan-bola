@@ -36,7 +36,7 @@ export default async function SudahDitontonPage() {
           {films?.length ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {films.map((film) => (
-                <div key={film.id} className="rounded-lg border border-border bg-card p-5">
+                <div key={film.id} className="rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md">
                   <Link href={`/jadwal-film/${film.id}`}>
                     <p className="font-semibold">{film.title}</p>
                     <p className="mt-1 text-sm text-muted">{film.genre?.join(", ")}</p>
@@ -48,14 +48,14 @@ export default async function SudahDitontonPage() {
                       returnTo="/sudah-ditonton"
                       userId={user.id}
                       isWatched
-                      className="rounded-md border border-secondary bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
+                      className="rounded-lg border border-secondary bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
                     />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-sm text-muted">
               Belum ada film yang ditandai sudah ditonton.
             </p>
           )}
@@ -66,7 +66,7 @@ export default async function SudahDitontonPage() {
           {classics?.length ? (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {classics.map((film) => (
-                <div key={film.id} className="overflow-hidden rounded-lg border border-border bg-card">
+                <div key={film.id} className="overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
                   {film.poster_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={film.poster_url} alt={film.title} className="h-48 w-full object-cover" />
@@ -81,7 +81,7 @@ export default async function SudahDitontonPage() {
                         returnTo="/sudah-ditonton"
                         userId={user.id}
                         isWatched
-                        className="rounded-md border border-secondary bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground"
+                        className="rounded-lg border border-secondary bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground"
                       />
                     </div>
                   </div>
@@ -89,7 +89,7 @@ export default async function SudahDitontonPage() {
               ))}
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-sm text-muted">
               Belum ada film klasik yang ditandai sudah ditonton.
             </p>
           )}

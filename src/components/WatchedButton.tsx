@@ -32,7 +32,7 @@ export default async function WatchedButton({
     return (
       <Link
         href={`/login?next=${encodeURIComponent(returnTo)}`}
-        className={className ?? "rounded-md border border-border px-3 py-1.5 text-sm font-medium hover:bg-card"}
+        className={className ?? "rounded-lg border border-border px-3 py-1.5 text-sm font-medium hover:bg-card"}
       >
         Sudah ditonton?
       </Link>
@@ -61,7 +61,7 @@ export default async function WatchedButton({
         type="submit"
         className={
           className ??
-          `rounded-md border px-3 py-1.5 text-sm font-medium ${
+          `rounded-lg border px-3 py-1.5 text-sm font-medium ${
             watched ? "border-secondary bg-secondary text-secondary-foreground" : "border-border hover:bg-card"
           }`
         }

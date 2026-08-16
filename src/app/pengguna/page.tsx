@@ -33,7 +33,7 @@ export default async function CariPenggunaPage({
             <Link
               key={u.id}
               href={`/pengguna/${u.username}`}
-              className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary"
+              className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
             >
               <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full border border-border bg-background">
                 {u.avatar_url ? (

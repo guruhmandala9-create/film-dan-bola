@@ -115,7 +115,7 @@ export default async function FilmKlasikPage({
           {filtered.map((film) => (
             <div
               key={film.id}
-              className="flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-primary"
+              className="flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
             >
               <a
                 href={film.imdb_id ? `https://www.imdb.com/title/${film.imdb_id}/` : undefined}
@@ -148,7 +148,7 @@ export default async function FilmKlasikPage({
                   returnTo="/film-klasik"
                   userId={user?.id ?? null}
                   isWatched={watchedIds.has(film.id)}
-                  className={`w-full rounded-md border px-3 py-1.5 text-xs font-medium ${
+                  className={`w-full rounded-lg border px-3 py-1.5 text-xs font-medium ${
                     watchedIds.has(film.id)
                       ? "border-secondary bg-secondary text-secondary-foreground"
                       : "border-border hover:bg-background"

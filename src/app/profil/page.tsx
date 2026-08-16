@@ -23,13 +23,13 @@ export default async function ProfilPage({
           description="Kelola akun, preferensi tim/genre favorit, dan tontonan yang sudah ditandai."
         />
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-          <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border bg-card p-8 text-center">
+          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border bg-card p-8 text-center">
             <p className="font-medium">Kamu belum masuk</p>
             <div className="flex gap-2">
-              <Link href="/login" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background">
+              <Link href="/login" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background">
                 Masuk
               </Link>
-              <Link href="/signup" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+              <Link href="/signup" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 Daftar
               </Link>
             </div>
@@ -58,14 +58,14 @@ export default async function ProfilPage({
       />
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
         {error && (
-          <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">{error}</p>
+          <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">{error}</p>
         )}
         {saved && (
-          <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-primary">Tersimpan.</p>
+          <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-primary">Tersimpan.</p>
         )}
 
         <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
-          <div className="rounded-lg border border-border bg-card p-6">
+          <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
             <div className="mx-auto h-24 w-24 overflow-hidden rounded-full border border-border bg-background">
               {profile?.avatar_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -82,9 +82,9 @@ export default async function ProfilPage({
                 name="avatar"
                 accept="image/*"
                 required
-                className="text-xs file:mr-2 file:rounded-md file:border file:border-border file:bg-background file:px-2 file:py-1 file:text-xs"
+                className="text-xs file:mr-2 file:rounded-lg file:border file:border-border file:bg-background file:px-2 file:py-1 file:text-xs"
               />
-              <button type="submit" className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-background">
+              <button type="submit" className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium hover:bg-background">
                 Ganti foto
               </button>
             </form>
@@ -103,7 +103,7 @@ export default async function ProfilPage({
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="rounded-lg border border-border bg-card p-6">
+            <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
               <p className="text-sm text-muted">{user.email}</p>
 
               <form action={updateProfileDetails} className="mt-4 flex flex-col gap-3">
@@ -113,7 +113,7 @@ export default async function ProfilPage({
                     type="text"
                     name="display_name"
                     defaultValue={profile?.display_name ?? ""}
-                    className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+                    className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
                   />
                 </label>
                 <label className="flex flex-col gap-1 text-sm">
@@ -126,7 +126,7 @@ export default async function ProfilPage({
                     title="3-20 karakter: huruf kecil, angka, underscore, titik"
                     defaultValue={profile?.username ?? ""}
                     placeholder="mis. guruh_mandala"
-                    className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+                    className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
                   />
                 </label>
                 <label className="flex flex-col gap-1 text-sm">
@@ -136,12 +136,12 @@ export default async function ProfilPage({
                     rows={3}
                     defaultValue={profile?.bio ?? ""}
                     placeholder="Ceritakan sedikit tentang dirimu..."
-                    className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+                    className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
                   />
                 </label>
                 <button
                   type="submit"
-                  className="self-start rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                  className="self-start rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
                 >
                   Simpan
                 </button>
@@ -173,32 +173,32 @@ export default async function ProfilPage({
               <div className="mt-6 flex flex-wrap gap-2 border-t border-border pt-4">
                 <Link
                   href="/onboarding"
-                  className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background"
+                  className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background"
                 >
                   {profile ? "Ubah preferensi" : "Atur preferensi"}
                 </Link>
                 <Link
                   href="/tontonan-saya"
-                  className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background"
+                  className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background"
                 >
                   Watchlist Saya
                 </Link>
                 <Link
                   href="/sudah-ditonton"
-                  className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background"
+                  className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background"
                 >
                   Sudah Ditonton ({watchedCount ?? 0})
                 </Link>
                 {profile?.is_admin && (
                   <Link
                     href="/admin"
-                    className="rounded-md border border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+                    className="rounded-lg border border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary/10"
                   >
                     Panel Admin
                   </Link>
                 )}
                 <form action={signOut}>
-                  <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background">
+                  <button type="submit" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background">
                     Keluar
                   </button>
                 </form>

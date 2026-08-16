@@ -29,7 +29,7 @@ export default function FilmForm({
           name="title"
           required
           defaultValue={defaultValues?.title}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
@@ -39,7 +39,7 @@ export default function FilmForm({
           {GENRES.map((genre) => (
             <label
               key={genre}
-              className="flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+              className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
             >
               <input type="checkbox" name="genre" value={genre} defaultChecked={selectedGenres.has(genre)} className="sr-only" />
               {genre}
@@ -55,7 +55,7 @@ export default function FilmForm({
             name="city"
             required
             defaultValue={defaultValues?.city}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           >
             <option value="" disabled>
               Pilih kota
@@ -75,7 +75,7 @@ export default function FilmForm({
             name="cinema_name"
             required
             defaultValue={defaultValues?.cinema_name}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           />
         </label>
       </div>
@@ -87,7 +87,7 @@ export default function FilmForm({
           name="showtime"
           required
           defaultValue={toDatetimeLocalValue(defaultValues?.showtime)}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
@@ -97,7 +97,7 @@ export default function FilmForm({
           type="url"
           name="poster_url"
           defaultValue={defaultValues?.poster_url ?? ""}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
@@ -107,13 +107,13 @@ export default function FilmForm({
           name="synopsis"
           rows={3}
           defaultValue={defaultValues?.synopsis ?? ""}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
       <button
         type="submit"
-        className="self-start rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
+        className="self-start rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90"
       >
         {submitLabel}
       </button>

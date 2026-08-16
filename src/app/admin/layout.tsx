@@ -26,25 +26,25 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <nav className="mt-6 flex gap-2 border-b border-border pb-px">
         <Link
           href="/admin/films"
-          className="rounded-t-md border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium"
+          className="rounded-t-lg border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-muted-bg"
         >
           Film
         </Link>
         <Link
           href="/admin/matches"
-          className="rounded-t-md border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium"
+          className="rounded-t-lg border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-muted-bg"
         >
           Pertandingan
         </Link>
         <Link
           href="/admin/comments"
-          className="rounded-t-md border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium"
+          className="rounded-t-lg border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-muted-bg"
         >
           Komentar
         </Link>
         <Link
           href="/admin/classic-films"
-          className="rounded-t-md border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium"
+          className="rounded-t-lg border border-b-0 border-border bg-card px-4 py-2 text-sm font-medium transition-colors hover:bg-muted-bg"
         >
           Film Klasik
         </Link>

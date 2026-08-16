@@ -20,7 +20,7 @@ export default function SearchBox({
         name="q"
         defaultValue={defaultValue}
         placeholder={placeholder}
-        className="w-full max-w-sm rounded-md border border-border bg-card px-3 py-2 text-sm outline-none focus:border-primary"
+        className="w-full max-w-sm rounded-lg border border-border bg-card px-3 py-2 text-sm outline-none focus:border-primary"
       />
     </form>
   );

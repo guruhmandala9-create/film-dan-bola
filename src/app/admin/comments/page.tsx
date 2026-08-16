@@ -48,7 +48,7 @@ export default async function AdminCommentsPage() {
 
         <div className="flex flex-col gap-3">
           {comments?.map((comment) => (
-            <div key={comment.id} className="rounded-lg border border-border bg-card p-4">
+            <div key={comment.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <Link
                   href={`/${comment.item_type === "film" ? "jadwal-film" : "jadwal-bola"}/${comment.item_id}`}
@@ -67,7 +67,7 @@ export default async function AdminCommentsPage() {
                 <input type="hidden" name="hidden" value={(!comment.is_hidden).toString()} />
                 <button
                   type="submit"
-                  className={`rounded-md border px-3 py-1.5 text-xs font-medium ${
+                  className={`rounded-lg border px-3 py-1.5 text-xs font-medium ${
                     comment.is_hidden
                       ? "border-border hover:bg-background"
                       : "border-red-500 text-red-500 hover:bg-red-500/10"
@@ -79,7 +79,7 @@ export default async function AdminCommentsPage() {
             </div>
           ))}
           {!comments?.length && (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-center text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-center text-sm text-muted">
               Belum ada komentar jadwal yang dilaporkan.
             </p>
           )}
@@ -93,7 +93,7 @@ export default async function AdminCommentsPage() {
 
         <div className="flex flex-col gap-3">
           {profileComments?.map((comment) => (
-            <div key={comment.id} className="rounded-lg border border-border bg-card p-4">
+            <div key={comment.id} className="rounded-xl border border-border bg-card p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 {usernames.get(comment.profile_owner_id) ? (
                   <Link
@@ -116,7 +116,7 @@ export default async function AdminCommentsPage() {
                 <input type="hidden" name="hidden" value={(!comment.is_hidden).toString()} />
                 <button
                   type="submit"
-                  className={`rounded-md border px-3 py-1.5 text-xs font-medium ${
+                  className={`rounded-lg border px-3 py-1.5 text-xs font-medium ${
                     comment.is_hidden
                       ? "border-border hover:bg-background"
                       : "border-red-500 text-red-500 hover:bg-red-500/10"
@@ -128,7 +128,7 @@ export default async function AdminCommentsPage() {
             </div>
           ))}
           {!profileComments?.length && (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-center text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-center text-sm text-muted">
               Belum ada komentar profil yang dilaporkan.
             </p>
           )}

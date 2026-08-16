@@ -37,8 +37,10 @@ export default async function ReactionBar({
           <input type="hidden" name="returnTo" value={returnTo} />
           <button
             type="submit"
-            className={`rounded-full border px-3 py-1 text-sm transition-colors ${
-              myReaction === emoji ? "border-primary bg-primary/10" : "border-border hover:bg-card"
+            className={`rounded-full border px-3 py-1 text-sm transition-all ${
+              myReaction === emoji
+                ? "scale-110 border-primary bg-primary/10 shadow-sm"
+                : "border-border hover:-translate-y-0.5 hover:bg-muted-bg"
             }`}
           >
             {emoji} {counts.get(emoji) ?? 0}

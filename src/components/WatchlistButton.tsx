@@ -34,7 +34,7 @@ export default async function WatchlistButton({
     return (
       <Link
         href={`/login?next=${encodeURIComponent(returnTo)}`}
-        className={className ?? "rounded-md border border-border px-3 py-1.5 text-sm font-medium hover:bg-card"}
+        className={className ?? "rounded-lg border border-border px-3 py-1.5 text-sm font-medium hover:bg-card"}
       >
         + Tandai
       </Link>
@@ -63,7 +63,7 @@ export default async function WatchlistButton({
         type="submit"
         className={
           className ??
-          `rounded-md border px-3 py-1.5 text-sm font-medium ${
+          `rounded-lg border px-3 py-1.5 text-sm font-medium ${
             watchlisted
               ? "border-primary bg-primary text-primary-foreground"
               : "border-border hover:bg-card"

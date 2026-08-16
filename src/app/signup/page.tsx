@@ -15,13 +15,13 @@ export default async function SignupPage({
       <p className="mt-1 text-sm text-muted">Buat akun untuk mulai menandai film dan jadwal bola favoritmu.</p>
 
       {error && (
-        <p className="mt-4 rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">
+        <p className="mt-4 rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">
           {error}
         </p>
       )}
 
       {check_email ? (
-        <p className="mt-6 rounded-md border border-dashed border-border bg-card px-4 py-4 text-sm">
+        <p className="mt-6 rounded-lg border border-dashed border-border bg-card px-4 py-4 text-sm">
           Cek email kamu untuk konfirmasi pendaftaran, lalu kembali ke sini untuk masuk.
         </p>
       ) : (
@@ -42,7 +42,7 @@ export default async function SignupPage({
               name="email"
               placeholder="Email"
               required
-              className="rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
+              className="rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
             />
             <input
               type="password"
@@ -50,11 +50,11 @@ export default async function SignupPage({
               placeholder="Kata sandi (min. 6 karakter)"
               required
               minLength={6}
-              className="rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
+              className="rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
             />
             <button
               type="submit"
-              className="mt-1 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              className="mt-1 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
               Daftar
             </button>

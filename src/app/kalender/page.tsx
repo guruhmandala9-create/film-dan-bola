@@ -29,13 +29,13 @@ export default async function KalenderPage() {
           description="Satu tampilan kalender yang menggabungkan jadwal film dan jadwal bola yang sudah kamu tandai."
         />
         <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-          <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border bg-card p-8 text-center">
+          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border bg-card p-8 text-center">
             <p className="font-medium">Masuk untuk melihat kalender tontonanmu</p>
             <div className="flex gap-2">
-              <Link href="/login?next=/kalender" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background">
+              <Link href="/login?next=/kalender" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background">
                 Masuk
               </Link>
-              <Link href="/signup" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+              <Link href="/signup" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
                 Daftar
               </Link>
             </div>
@@ -94,18 +94,18 @@ export default async function KalenderPage() {
                     <Link
                       key={`${item.kind}-${item.id}`}
                       href={item.href}
-                      className={`flex items-center gap-4 rounded-lg border border-border bg-card p-4 transition-colors ${
+                      className={`flex items-center gap-4 rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md ${
                         item.kind === "film" ? "hover:border-primary" : "hover:border-secondary"
                       }`}
                     >
                       <span
-                        className={`shrink-0 rounded-md px-2 py-1 text-xs font-semibold ${
+                        className={`flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold ${
                           item.kind === "film"
                             ? "bg-primary text-primary-foreground"
                             : "bg-secondary text-secondary-foreground"
                         }`}
                       >
-                        {item.badge}
+                        {item.kind === "film" ? "🎬" : "⚽"} {item.badge}
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate font-medium">{item.title}</span>
@@ -118,16 +118,16 @@ export default async function KalenderPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border bg-card p-8 text-center">
+          <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border bg-card p-8 text-center">
             <p className="font-medium">Belum ada jadwal yang ditandai</p>
             <p className="max-w-md text-sm text-muted">
               Tandai film atau pertandingan dari halaman Jadwal Film / Jadwal Bola supaya muncul di sini.
             </p>
             <div className="flex gap-2">
-              <Link href="/jadwal-film" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background">
+              <Link href="/jadwal-film" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background">
                 Jadwal Film
               </Link>
-              <Link href="/jadwal-bola" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-background">
+              <Link href="/jadwal-bola" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-background">
                 Jadwal Bola
               </Link>
             </div>

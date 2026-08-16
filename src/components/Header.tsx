@@ -37,7 +37,7 @@ export default function Header({
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   active
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground/70 hover:bg-card hover:text-foreground"
@@ -53,7 +53,7 @@ export default function Header({
           {isAdmin && (
             <Link
               href="/admin"
-              className="rounded-md border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
+              className="rounded-lg border border-primary px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10"
             >
               Admin
             </Link>
@@ -62,19 +62,19 @@ export default function Header({
             <form action={signOut}>
               <button
                 type="submit"
-                className="rounded-md border border-border px-3 py-2 text-sm font-medium transition-colors hover:bg-card"
+                className="rounded-lg border border-border px-3 py-2 text-sm font-medium transition-colors hover:bg-card"
               >
                 Keluar
               </button>
             </form>
           ) : (
             <>
-              <Link href="/login" className="rounded-md px-3 py-2 text-sm font-medium hover:bg-card">
+              <Link href="/login" className="rounded-lg px-3 py-2 text-sm font-medium hover:bg-card">
                 Masuk
               </Link>
               <Link
                 href="/signup"
-                className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+                className="rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
                 Daftar
               </Link>
@@ -87,7 +87,7 @@ export default function Header({
           aria-label="Buka menu navigasi"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-10 w-10 items-center justify-center rounded-md border border-border md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-border md:hidden"
         >
           <span className="sr-only">Menu</span>
           <div className="flex flex-col gap-1.5">
@@ -107,7 +107,7 @@ export default function Header({
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className={`block rounded-md px-3 py-2.5 text-sm font-medium ${
+                className={`block rounded-lg px-3 py-2.5 text-sm font-medium ${
                   active
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground/70 hover:bg-card hover:text-foreground"
@@ -122,7 +122,7 @@ export default function Header({
               <Link
                 href="/admin"
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-3 py-2.5 text-sm font-medium text-primary hover:bg-card"
+                className="block rounded-lg px-3 py-2.5 text-sm font-medium text-primary hover:bg-card"
               >
                 Panel Admin
               </Link>
@@ -131,7 +131,7 @@ export default function Header({
               <form action={signOut}>
                 <button
                   type="submit"
-                  className="block w-full rounded-md px-3 py-2.5 text-left text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
+                  className="block w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
                 >
                   Keluar ({user.email})
                 </button>
@@ -141,14 +141,14 @@ export default function Header({
                 <Link
                   href="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="block rounded-md px-3 py-2.5 text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
+                  className="block rounded-lg px-3 py-2.5 text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
                 >
                   Masuk
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setMenuOpen(false)}
-                  className="block rounded-md bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground"
+                  className="block rounded-lg bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground"
                 >
                   Daftar
                 </Link>

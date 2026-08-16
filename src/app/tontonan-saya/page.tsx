@@ -30,7 +30,7 @@ export default async function TontonanSayaPage() {
           {films.length ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {films.map((film) => (
-                <div key={film.id} className="rounded-lg border border-border bg-card p-5">
+                <div key={film.id} className="rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md">
                   <Link href={`/jadwal-film/${film.id}`}>
                     <p className="font-semibold">{film.title}</p>
                     <p className="mt-1 text-sm text-muted">{film.genre?.join(", ")}</p>
@@ -46,14 +46,14 @@ export default async function TontonanSayaPage() {
                       returnTo="/tontonan-saya"
                       userId={user.id}
                       isWatchlisted
-                      className="rounded-md border border-primary bg-primary px-3 py-1 text-xs font-medium text-primary-foreground"
+                      className="rounded-lg border border-primary bg-primary px-3 py-1 text-xs font-medium text-primary-foreground"
                     />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-sm text-muted">
               Belum ada film yang ditandai.{" "}
               <Link href="/jadwal-film" className="underline">
                 Cari film
@@ -68,7 +68,7 @@ export default async function TontonanSayaPage() {
           {matches.length ? (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {matches.map((match) => (
-                <div key={match.id} className="rounded-lg border border-border bg-card p-5">
+                <div key={match.id} className="rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md">
                   <Link href={`/jadwal-bola/${match.id}`}>
                     <p className="text-xs font-medium uppercase tracking-wide text-muted">{match.league}</p>
                     <p className="mt-1 font-semibold">
@@ -87,14 +87,14 @@ export default async function TontonanSayaPage() {
                       returnTo="/tontonan-saya"
                       userId={user.id}
                       isWatchlisted
-                      className="rounded-md border border-secondary bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
+                      className="rounded-lg border border-secondary bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground"
                     />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="rounded-lg border border-dashed border-border bg-card p-6 text-sm text-muted">
+            <p className="rounded-xl border border-dashed border-border bg-card p-6 text-sm text-muted">
               Belum ada pertandingan yang ditandai.{" "}
               <Link href="/jadwal-bola" className="underline">
                 Cari jadwal bola

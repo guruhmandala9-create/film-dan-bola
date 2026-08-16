@@ -84,7 +84,7 @@ export default async function JadwalBolaPage({
 
         <div className="flex flex-col gap-3">
           {leagueGroups.map(([league, leagueMatches]) => (
-            <details key={league} open={isFiltering} className="group rounded-lg border border-border bg-card">
+            <details key={league} open={isFiltering} className="group rounded-xl border border-border bg-card shadow-sm">
               <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4">
                 <span className="font-semibold">{league}</span>
                 <span className="flex items-center gap-2 text-sm text-muted">
@@ -97,9 +97,15 @@ export default async function JadwalBolaPage({
                 {leagueMatches.map((match) => {
                   const finished = isMatchFinished(match);
                   return (
-                    <div key={match.id} className="rounded-lg border border-border bg-background p-4 transition-colors hover:border-secondary">
+                    <div
+                      key={match.id}
+                      className="rounded-xl border border-border bg-background p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
+                    >
                       <Link href={`/jadwal-bola/${match.id}`}>
-                        <p className="font-semibold">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-semibold text-secondary">
+                          ⚽ Bola
+                        </span>
+                        <p className="mt-2 font-semibold">
                           {match.home_team} vs {match.away_team}
                         </p>
                         {finished ? (
@@ -117,7 +123,7 @@ export default async function JadwalBolaPage({
                           returnTo={returnTo}
                           userId={user?.id ?? null}
                           isWatchlisted={watchlistedIds.has(match.id)}
-                          className={`rounded-md border px-3 py-1 text-xs font-medium ${
+                          className={`rounded-lg border px-3 py-1 text-xs font-medium ${
                             watchlistedIds.has(match.id)
                               ? "border-secondary bg-secondary text-secondary-foreground"
                               : "border-border hover:bg-card"

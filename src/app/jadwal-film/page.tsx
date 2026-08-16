@@ -48,7 +48,7 @@ export default async function JadwalFilmPage({
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
         <Link
           href="/film-klasik"
-          className="mb-6 flex items-center justify-between rounded-lg border border-dashed border-border bg-card px-4 py-3 text-sm transition-colors hover:border-primary"
+          className="mb-6 flex items-center justify-between rounded-xl border border-dashed border-border bg-card px-4 py-3 text-sm transition-colors hover:border-primary"
         >
           <span>
             🎞️ Cari film <strong>klasik dunia</strong> lengkap dengan rating IMDb
@@ -84,10 +84,13 @@ export default async function JadwalFilmPage({
           {films?.map((film) => (
             <div
               key={film.id}
-              className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
+              className="rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
             >
               <Link href={`/jadwal-film/${film.id}`}>
-                <p className="font-semibold">{film.title}</p>
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                  🎬 Film
+                </span>
+                <p className="mt-2 font-semibold">{film.title}</p>
                 <p className="mt-1 text-sm text-muted">{film.genre?.join(", ")}</p>
                 <p className="mt-3 text-sm">
                   {film.cinema_name} — {film.city}
@@ -101,7 +104,7 @@ export default async function JadwalFilmPage({
                   returnTo={returnTo}
                   userId={user?.id ?? null}
                   isWatchlisted={watchlistedIds.has(film.id)}
-                  className={`rounded-md border px-3 py-1 text-xs font-medium ${
+                  className={`rounded-lg border px-3 py-1 text-xs font-medium ${
                     watchlistedIds.has(film.id)
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border hover:bg-background"

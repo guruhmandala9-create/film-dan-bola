@@ -33,13 +33,13 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
       </div>
 
       {finished && (
-        <div className="mt-6 rounded-lg border border-border bg-card p-6 text-center">
+        <div className="mt-6 rounded-xl border border-border bg-card p-6 text-center">
           <p className="text-xs font-medium uppercase tracking-wide text-muted">Hasil akhir</p>
           <p className="mt-1 text-4xl font-bold text-secondary">{formatMatchResult(match)}</p>
         </div>
       )}
 
-      <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
+      <div className="mt-6 grid gap-4 rounded-xl border border-border bg-card p-5 sm:grid-cols-2">
         <div>
           <p className="text-sm text-muted">Kick-off</p>
           <p className="font-medium text-secondary">{formatDateTime(match.kickoff_time)}</p>

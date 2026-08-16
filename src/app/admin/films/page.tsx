@@ -16,13 +16,13 @@ export default async function AdminFilmsPage() {
         <p className="text-sm text-muted">{films?.length ?? 0} film terdaftar</p>
         <Link
           href="/admin/films/new"
-          className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+          className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
         >
           + Tambah film
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-border">
+      <div className="overflow-x-auto rounded-xl border border-border shadow-sm">
         <table className="w-full text-sm">
           <thead className="bg-card text-left text-muted">
             <tr>
@@ -34,7 +34,7 @@ export default async function AdminFilmsPage() {
           </thead>
           <tbody className="divide-y divide-border">
             {films?.map((film) => (
-              <tr key={film.id}>
+              <tr key={film.id} className="transition-colors hover:bg-muted-bg">
                 <td className="px-4 py-3">
                   <p className="font-medium">{film.title}</p>
                   <p className="text-xs text-muted">{film.genre?.join(", ")}</p>

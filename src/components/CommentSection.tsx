@@ -45,11 +45,11 @@ export default async function CommentSection({
             required
             rows={2}
             placeholder="Tulis komentar..."
-            className="rounded-md border border-border bg-card px-3 py-2 text-sm outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-card px-3 py-2 text-sm outline-none focus:border-primary"
           />
           <button
             type="submit"
-            className="self-start rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+            className="self-start rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
           >
             Kirim
           </button>
@@ -65,7 +65,7 @@ export default async function CommentSection({
 
       <div className="flex flex-col gap-4">
         {comments?.map((comment) => (
-          <div key={comment.id} className="rounded-lg border border-border bg-card p-4">
+          <div key={comment.id} className="rounded-xl border border-border bg-card p-4">
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium">{names.get(comment.user_id) || "Pengguna"}</p>
               <p className="text-xs text-muted">

@@ -26,7 +26,7 @@ export default function MatchForm({
           name="league"
           required
           defaultValue={defaultValues?.league}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         >
           <option value="" disabled>
             Pilih liga
@@ -47,7 +47,7 @@ export default function MatchForm({
             name="home_team"
             required
             defaultValue={defaultValues?.home_team}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -57,7 +57,7 @@ export default function MatchForm({
             name="away_team"
             required
             defaultValue={defaultValues?.away_team}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           />
         </label>
       </div>
@@ -69,7 +69,7 @@ export default function MatchForm({
           name="kickoff_time"
           required
           defaultValue={toDatetimeLocalValue(defaultValues?.kickoff_time)}
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
@@ -81,7 +81,7 @@ export default function MatchForm({
             name="home_score"
             min={0}
             defaultValue={defaultValues?.home_score ?? ""}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -91,7 +91,7 @@ export default function MatchForm({
             name="away_score"
             min={0}
             defaultValue={defaultValues?.away_score ?? ""}
-            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
           />
         </label>
       </div>
@@ -103,13 +103,13 @@ export default function MatchForm({
           name="broadcast_channel"
           defaultValue={defaultValues?.broadcast_channel ?? ""}
           placeholder="mis. Vidio, beIN Sports"
-          className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
 
       <button
         type="submit"
-        className="self-start rounded-md bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground hover:opacity-90"
+        className="self-start rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground hover:opacity-90"
       >
         {submitLabel}
       </button>

@@ -65,13 +65,13 @@ export default async function Home() {
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/jadwal-film"
-            className="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+            className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
           >
             Lihat Jadwal Film
           </Link>
           <Link
             href="/jadwal-bola"
-            className="rounded-md bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition-opacity hover:opacity-90"
+            className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
           >
             Lihat Jadwal Bola
           </Link>
@@ -86,9 +86,12 @@ export default async function Home() {
               <Link
                 key={film.id}
                 href={`/jadwal-film/${film.id}`}
-                className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
+                className="rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
               >
-                <p className="font-semibold">{film.title}</p>
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
+                  🎬 Film
+                </span>
+                <p className="mt-2 font-semibold">{film.title}</p>
                 <p className="mt-1 text-sm text-muted">{film.genre?.join(", ")}</p>
                 <p className="mt-3 text-sm">
                   {film.cinema_name} — {film.city}
@@ -100,10 +103,12 @@ export default async function Home() {
               <Link
                 key={match.id}
                 href={`/jadwal-bola/${match.id}`}
-                className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-secondary"
+                className="rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-secondary hover:shadow-md"
               >
-                <p className="text-xs font-medium uppercase tracking-wide text-muted">{match.league}</p>
-                <p className="mt-1 font-semibold">
+                <span className="inline-flex items-center gap-1 rounded-full bg-secondary/10 px-2 py-0.5 text-xs font-semibold text-secondary">
+                  ⚽ {match.league}
+                </span>
+                <p className="mt-2 font-semibold">
                   {match.home_team} vs {match.away_team}
                 </p>
                 <p className="mt-3 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
@@ -135,7 +140,7 @@ export default async function Home() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
+              className="rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
             >
               <p className="font-semibold">{item.title}</p>
               <p className="mt-1 text-sm text-muted">{item.desc}</p>

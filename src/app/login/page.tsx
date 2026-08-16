@@ -15,7 +15,7 @@ export default async function LoginPage({
       <p className="mt-1 text-sm text-muted">Masuk untuk menandai jadwal dan mengatur reminder.</p>
 
       {error && (
-        <p className="mt-4 rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">
+        <p className="mt-4 rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">
           {error}
         </p>
       )}
@@ -37,7 +37,7 @@ export default async function LoginPage({
           name="email"
           placeholder="Email"
           required
-          className="rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
         <input
           type="password"
@@ -45,11 +45,11 @@ export default async function LoginPage({
           placeholder="Kata sandi"
           required
           minLength={6}
-          className="rounded-md border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
+          className="rounded-lg border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-primary"
         />
         <button
           type="submit"
-          className="mt-1 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          className="mt-1 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
         >
           Masuk
         </button>

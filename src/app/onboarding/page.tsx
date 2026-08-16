@@ -34,7 +34,7 @@ export default async function OnboardingPage({
       </p>
 
       {error && (
-        <p className="mt-4 rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">
+        <p className="mt-4 rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">
           {error}
         </p>
       )}
@@ -46,7 +46,7 @@ export default async function OnboardingPage({
             {CITIES.map((city, i) => (
               <label
                 key={city}
-                className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
               >
                 <input
                   type="radio"
@@ -72,7 +72,7 @@ export default async function OnboardingPage({
                   {teams.map((team) => (
                     <label
                       key={team}
-                      className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-sm has-[:checked]:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-secondary-foreground"
+                      className="flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5 text-sm has-[:checked]:border-secondary has-[:checked]:bg-secondary has-[:checked]:text-secondary-foreground"
                     >
                       <input
                         type="checkbox"
@@ -96,7 +96,7 @@ export default async function OnboardingPage({
             {GENRES.map((genre) => (
               <label
                 key={genre}
-                className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-primary-foreground"
               >
                 <input
                   type="checkbox"
@@ -113,7 +113,7 @@ export default async function OnboardingPage({
 
         <button
           type="submit"
-          className="self-start rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+          className="self-start rounded-lg bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
         >
           Simpan & lanjutkan
         </button>

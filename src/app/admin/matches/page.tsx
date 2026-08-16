@@ -17,13 +17,13 @@ export default async function AdminMatchesPage() {
         <p className="text-sm text-muted">{matches?.length ?? 0} pertandingan terdaftar</p>
         <Link
           href="/admin/matches/new"
-          className="rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground hover:opacity-90"
+          className="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground hover:opacity-90"
         >
           + Tambah pertandingan
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-border">
+      <div className="overflow-x-auto rounded-xl border border-border shadow-sm">
         <table className="w-full text-sm">
           <thead className="bg-card text-left text-muted">
             <tr>
@@ -36,7 +36,7 @@ export default async function AdminMatchesPage() {
           </thead>
           <tbody className="divide-y divide-border">
             {matches?.map((match) => (
-              <tr key={match.id}>
+              <tr key={match.id} className="transition-colors hover:bg-muted-bg">
                 <td className="px-4 py-3">
                   <p className="font-medium">
                     {match.home_team} vs {match.away_team}

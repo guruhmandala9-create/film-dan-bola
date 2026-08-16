@@ -12,7 +12,7 @@ export default async function NewFilmPage({
     <div>
       <h2 className="mb-4 text-lg font-semibold">Tambah film</h2>
       {error && (
-        <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">
+        <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">
           {error}
         </p>
       )}

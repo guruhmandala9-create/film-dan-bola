@@ -17,15 +17,15 @@ export default async function AdminClassicFilmsPage({
   return (
     <div>
       {error && (
-        <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-red-500">{error}</p>
+        <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-red-500">{error}</p>
       )}
       {added && (
-        <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-primary">
+        <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-primary">
           &quot;{added}&quot; ditambahkan.
         </p>
       )}
       {seeded && (
-        <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-primary">
+        <p className="mb-4 max-w-xl rounded-lg border border-border bg-card px-3 py-2 text-sm text-primary">
           Batch {batch}: {seeded} berhasil{Number(failed) > 0 ? `, ${failed} gagal ditemukan di OMDb` : ""}.
         </p>
       )}
@@ -37,9 +37,9 @@ export default async function AdminClassicFilmsPage({
             name="title"
             required
             placeholder="Judul film (mis. Citizen Kane)"
-            className="rounded-md border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
           />
-          <button type="submit" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
+          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
             Tambah dari OMDb
           </button>
         </form>
@@ -52,7 +52,7 @@ export default async function AdminClassicFilmsPage({
             {CURATED_BATCHES.map((batchItems, i) => (
               <form key={i} action={seedClassicBatch}>
                 <input type="hidden" name="batch" value={i} />
-                <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-card">
+                <button type="submit" className="rounded-lg border border-border px-4 py-2 text-sm font-medium hover:bg-card">
                   Batch {i + 1} ({batchItems.length} film)
                 </button>
               </form>
@@ -63,7 +63,7 @@ export default async function AdminClassicFilmsPage({
 
       <p className="mb-3 text-sm text-muted">{films?.length ?? 0} film klasik terdaftar</p>
 
-      <div className="overflow-x-auto rounded-lg border border-border">
+      <div className="overflow-x-auto rounded-xl border border-border shadow-sm">
         <table className="w-full text-sm">
           <thead className="bg-card text-left text-muted">
             <tr>
@@ -77,7 +77,7 @@ export default async function AdminClassicFilmsPage({
           </thead>
           <tbody className="divide-y divide-border">
             {films?.map((film) => (
-              <tr key={film.id}>
+              <tr key={film.id} className="transition-colors hover:bg-muted-bg">
                 <td className="px-4 py-3 font-medium">{film.title}</td>
                 <td className="px-4 py-3">{film.year}</td>
                 <td className="px-4 py-3 text-muted">{film.genre}</td>

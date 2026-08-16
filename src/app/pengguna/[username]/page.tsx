@@ -56,13 +56,13 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
         {films?.length || classics?.length ? (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {films?.map((f) => (
-              <div key={f.id} className="rounded-lg border border-border bg-card p-3">
+              <div key={f.id} className="rounded-xl border border-border bg-card p-3 shadow-sm transition-shadow hover:shadow-md">
                 <p className="text-sm font-medium">{f.title}</p>
                 <p className="text-xs text-muted">{f.genre?.join(", ")}</p>
               </div>
             ))}
             {classics?.map((f) => (
-              <div key={f.id} className="overflow-hidden rounded-lg border border-border bg-card">
+              <div key={f.id} className="overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
                 {f.poster_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={f.poster_url} alt={f.title} className="h-40 w-full object-cover" />
