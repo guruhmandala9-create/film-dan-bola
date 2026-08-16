@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleWatched(formData: FormData) {
@@ -22,5 +23,6 @@ export async function toggleWatched(formData: FormData) {
     await supabase.from("watched_items").delete().eq("user_id", user.id).eq("item_type", itemType).eq("item_id", itemId);
   }
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }

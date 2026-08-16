@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleReaction(formData: FormData) {
@@ -32,5 +33,6 @@ export async function toggleReaction(formData: FormData) {
     await supabase.from("reactions").insert({ user_id: user.id, item_type: itemType, item_id: itemId, emoji });
   }
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }

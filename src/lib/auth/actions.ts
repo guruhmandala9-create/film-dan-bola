@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 async function getOrigin() {
@@ -57,6 +58,7 @@ export async function signInWithEmail(formData: FormData) {
   }
 
   const complete = await hasProfile(supabase, data.user.id);
+  revalidatePath("/", "layout");
   redirect(complete ? next || "/" : "/onboarding");
 }
 
@@ -83,5 +85,6 @@ export async function signInWithGoogle(formData: FormData) {
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  revalidatePath("/", "layout");
   redirect("/");
 }

@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function postProfileComment(formData: FormData) {
@@ -23,6 +24,7 @@ export async function postProfileComment(formData: FormData) {
     });
   }
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }
 
@@ -38,6 +40,7 @@ export async function deleteProfileComment(formData: FormData) {
   const commentId = String(formData.get("commentId"));
   await supabase.from("profile_comments").delete().eq("id", commentId).eq("author_id", user.id);
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }
 
@@ -53,5 +56,6 @@ export async function reportProfileComment(formData: FormData) {
   const commentId = String(formData.get("commentId"));
   await supabase.from("profile_comment_reports").insert({ profile_comment_id: commentId, reporter_id: user.id });
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }

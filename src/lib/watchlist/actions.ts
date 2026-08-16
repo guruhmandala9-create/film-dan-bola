@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function toggleWatchlist(formData: FormData) {
@@ -30,5 +31,6 @@ export async function toggleWatchlist(formData: FormData) {
       .eq("item_id", itemId);
   }
 
+  revalidatePath(returnTo);
   redirect(returnTo);
 }
