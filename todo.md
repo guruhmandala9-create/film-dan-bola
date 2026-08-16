@@ -21,21 +21,26 @@ Status: **Selesai**
 - [x] Pastikan tampilan responsif (diverifikasi di viewport desktop 1280px dan mobile 375px, termasuk menu hamburger)
 
 ## Fase 2 — Autentikasi & Data Inti
-Status: belum dimulai
+Status: **Kode selesai — menunggu 2 langkah manual kamu di Supabase**
 
 **Autentikasi & Onboarding**
-- [ ] Buat halaman sign up dan login (email + Google)
-- [ ] Buat sistem sesi login dan tombol logout
-- [ ] Buat alur onboarding: kota domisili, tim bola favorit, genre film favorit
-- [ ] Simpan preferensi onboarding ke database, terhubung ke akun pengguna
+- [x] Buat halaman sign up dan login (email + Google) — `/login`, `/signup`, tombol Google (butuh setup provider, lihat catatan di bawah)
+- [x] Buat sistem sesi login dan tombol logout — Supabase Auth + `@supabase/ssr`, middleware refresh sesi otomatis
+- [x] Buat alur onboarding: kota domisili, tim bola favorit, genre film favorit — `/onboarding`
+- [x] Simpan preferensi onboarding ke database — tersimpan ke tabel `profiles`
 
 **Panel Admin Sederhana**
-- [ ] Buat halaman admin internal (akses terbatas) untuk kelola data film & pertandingan
-- [ ] Input data awal: film 1–2 kota besar, jadwal 2–3 liga populer
+- [x] Buat halaman admin internal (akses terbatas) untuk kelola data film & pertandingan — `/admin`, digerbang oleh `profiles.is_admin`
+- [x] Input data awal: film 1–2 kota besar, jadwal 2–3 liga populer — disiapkan sebagai seed SQL di `supabase/migrations/0002_admin_and_seed.sql`
+- [ ] **Aksi kamu:** jalankan `supabase/migrations/0002_admin_and_seed.sql` di Supabase SQL Editor (menambah kolom `is_admin`, kebijakan tulis admin, dan data awal film/pertandingan)
+- [ ] **Aksi kamu:** setelah punya akun (daftar via `/signup`), jadikan akunmu admin lewat query di akhir file migrasi tadi (ganti dengan emailmu)
 
 **Halaman Jadwal Film & Bola**
-- [ ] Daftar film tayang + filter kota/bioskop + detail film
-- [ ] Daftar pertandingan + filter tim favorit + detail pertandingan
+- [x] Daftar film tayang + filter kota/bioskop + detail film — data asli dari Supabase
+- [x] Daftar pertandingan + filter tim favorit + detail pertandingan — data asli dari Supabase
+
+**Catatan: Login Google**
+Tombol "Lanjutkan dengan Google" sudah ada di kode, tapi providernya belum aktif di Supabase — perlu setup Google OAuth Client ID/Secret di Google Cloud Console lalu dimasukkan ke Supabase Dashboard > Authentication > Providers > Google. Ini butuh akses akun Google Cloud kamu, jadi ditunda dulu; login email/password sudah berfungsi penuh sebagai gantinya.
 
 ## Fase 3 — Personalisasi & Interaksi Pengguna
 Status: belum dimulai
