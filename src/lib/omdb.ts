@@ -41,3 +41,60 @@ export async function fetchOmdbByTitle(
     mediaType: data.Type === "series" ? "series" : "movie",
   };
 }
+
+export async function fetchOmdbById(imdbId: string): Promise<OmdbFilm | null> {
+  const apiKey = process.env.OMDB_API_KEY;
+  if (!apiKey) throw new Error("OMDB_API_KEY belum diatur");
+
+  const res = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${encodeURIComponent(imdbId)}`);
+  const data = await res.json();
+
+  if (data.Response === "False") {
+    console.error(`OMDb lookup by id failed for "${imdbId}": ${data.Error} [http ${res.status}]`);
+    return null;
+  }
+
+  return {
+    title: data.Title,
+    year: data.Year,
+    genre: data.Genre,
+    country: data.Country,
+    imdbRating: data.imdbRating && data.imdbRating !== "N/A" ? parseFloat(data.imdbRating) : null,
+    imdbId: data.imdbID,
+    posterUrl: data.Poster && data.Poster !== "N/A" ? data.Poster : null,
+    plot: data.Plot,
+    mediaType: data.Type === "series" ? "series" : "movie",
+  };
+}
+
+export type OmdbSearchResult = {
+  title: string;
+  year: string;
+  imdbId: string;
+  posterUrl: string | null;
+  mediaType: "movie" | "series";
+};
+
+export async function searchOmdbTitles(query: string, type?: "movie" | "series"): Promise<OmdbSearchResult[]> {
+  const apiKey = process.env.OMDB_API_KEY;
+  if (!apiKey) throw new Error("OMDB_API_KEY belum diatur");
+  if (!query.trim()) return [];
+
+  const url = `https://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(query)}${
+    type ? `&type=${type}` : ""
+  }`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.Response === "False" || !Array.isArray(data.Search)) return [];
+
+  return data.Search.map(
+    (item: { Title: string; Year: string; imdbID: string; Poster?: string; Type?: string }) => ({
+      title: item.Title,
+      year: item.Year,
+      imdbId: item.imdbID,
+      posterUrl: item.Poster && item.Poster !== "N/A" ? item.Poster : null,
+      mediaType: item.Type === "series" ? "series" : "movie",
+    })
+  );
+}

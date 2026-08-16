@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { addClassicFilmByTitle, seedClassicBatch, deleteClassicFilm } from "./actions";
+import { seedClassicBatch, deleteClassicFilm } from "./actions";
 import { CURATED_BATCHES } from "@/lib/classic-films/curated-titles";
+import OmdbSearchPicker from "@/components/admin/OmdbSearchPicker";
 
 export default async function AdminClassicFilmsPage({
   searchParams,
@@ -31,26 +32,10 @@ export default async function AdminClassicFilmsPage({
       )}
 
       <div className="mb-6 flex flex-col gap-4">
-        <form action={addClassicFilmByTitle} className="flex gap-2">
-          <input
-            type="text"
-            name="title"
-            required
-            placeholder="Judul film/series (mis. Citizen Kane, Attack on Titan)"
-            className="w-72 rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-          />
-          <select
-            name="type"
-            defaultValue="movie"
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-          >
-            <option value="movie">Film</option>
-            <option value="series">Series / Anime</option>
-          </select>
-          <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
-            Tambah dari OMDb
-          </button>
-        </form>
+        <div>
+          <p className="mb-2 text-sm text-muted">Cari judul, pilih dari hasil yang muncul:</p>
+          <OmdbSearchPicker />
+        </div>
 
         <div>
           <p className="mb-2 text-sm text-muted">

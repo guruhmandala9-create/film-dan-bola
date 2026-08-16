@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { fetchOmdbByTitle, type OmdbFilm } from "@/lib/omdb";
+import { fetchOmdbByTitle, fetchOmdbById, searchOmdbTitles, type OmdbFilm, type OmdbSearchResult } from "@/lib/omdb";
 import { CURATED_BATCHES } from "@/lib/classic-films/curated-titles";
 
 function toRow(film: OmdbFilm) {
@@ -30,6 +30,30 @@ export async function addClassicFilmByTitle(formData: FormData) {
 
   if (!film) {
     redirect(`/admin/classic-films?error=${encodeURIComponent(`"${title}" (${type === "series" ? "series" : "film"}) tidak ditemukan di OMDb`)}`);
+  }
+
+  const { error } = await supabase.from("classic_films").upsert(toRow(film!), { onConflict: "imdb_id" });
+
+  if (error) {
+    redirect(`/admin/classic-films?error=${encodeURIComponent(error.message)}`);
+  }
+
+  revalidatePath("/admin/classic-films");
+  revalidatePath("/film-klasik");
+  redirect(`/admin/classic-films?added=${encodeURIComponent(film!.title)}`);
+}
+
+export async function searchOmdb(query: string, type?: "movie" | "series"): Promise<OmdbSearchResult[]> {
+  if (!query.trim()) return [];
+  return searchOmdbTitles(query, type);
+}
+
+export async function addClassicFilmByImdbId(imdbId: string) {
+  const supabase = await createClient();
+  const film = await fetchOmdbById(imdbId);
+
+  if (!film) {
+    redirect(`/admin/classic-films?error=${encodeURIComponent("Gagal mengambil detail dari OMDb")}`);
   }
 
   const { error } = await supabase.from("classic_films").upsert(toRow(film!), { onConflict: "imdb_id" });
