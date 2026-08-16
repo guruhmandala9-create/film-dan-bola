@@ -55,9 +55,16 @@ export async function seedClassicBatch(formData: FormData) {
   for (const result of results) {
     if (result.status === "fulfilled" && result.value) {
       const { error } = await supabase.from("classic_films").upsert(toRow(result.value), { onConflict: "imdb_id" });
-      if (error) failed += 1;
-      else added += 1;
+      if (error) {
+        console.error(`Upsert failed for "${result.value.title}": ${error.message}`);
+        failed += 1;
+      } else {
+        added += 1;
+      }
     } else {
+      if (result.status === "rejected") {
+        console.error(`fetchOmdbByTitle rejected: ${result.reason}`);
+      }
       failed += 1;
     }
   }

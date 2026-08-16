@@ -19,7 +19,10 @@ export async function fetchOmdbByTitle(title: string, year?: string): Promise<Om
   const res = await fetch(url);
   const data = await res.json();
 
-  if (data.Response === "False") return null;
+  if (data.Response === "False") {
+    console.error(`OMDb lookup failed for "${title}"${year ? ` (${year})` : ""}: ${data.Error} [http ${res.status}]`);
+    return null;
+  }
 
   return {
     title: data.Title,
