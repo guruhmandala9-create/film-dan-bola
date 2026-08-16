@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
+import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 import WatchlistButton from "@/components/WatchlistButton";
 import ReactionBar from "@/components/ReactionBar";
 import CommentSection from "@/components/CommentSection";
@@ -12,6 +13,8 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
   const { data: match } = await supabase.from("matches").select("*").eq("id", id).maybeSingle();
 
   if (!match) notFound();
+
+  const finished = isMatchFinished(match);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
@@ -28,6 +31,13 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
         </div>
         <WatchlistButton itemType="match" itemId={match.id} returnTo={`/jadwal-bola/${match.id}`} />
       </div>
+
+      {finished && (
+        <div className="mt-6 rounded-lg border border-border bg-card p-6 text-center">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted">Hasil akhir</p>
+          <p className="mt-1 text-4xl font-bold text-secondary">{formatMatchResult(match)}</p>
+        </div>
+      )}
 
       <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
         <div>

@@ -5,6 +5,11 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fromJakartaLocalValue } from "@/lib/datetime";
 
+function parseScore(value: FormDataEntryValue | null) {
+  const s = String(value ?? "").trim();
+  return s === "" ? null : Number(s);
+}
+
 function parseMatchForm(formData: FormData) {
   return {
     league: String(formData.get("league") ?? ""),
@@ -12,6 +17,8 @@ function parseMatchForm(formData: FormData) {
     away_team: String(formData.get("away_team") ?? ""),
     broadcast_channel: String(formData.get("broadcast_channel") ?? "") || null,
     kickoff_time: fromJakartaLocalValue(String(formData.get("kickoff_time"))),
+    home_score: parseScore(formData.get("home_score")),
+    away_score: parseScore(formData.get("away_score")),
   };
 }
 

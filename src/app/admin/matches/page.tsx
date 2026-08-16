@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
+import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 import { deleteMatch } from "./actions";
 
 export default async function AdminMatchesPage() {
   const supabase = await createClient();
   const { data: matches } = await supabase
     .from("matches")
-    .select("id, league, home_team, away_team, kickoff_time, broadcast_channel")
+    .select("id, league, home_team, away_team, kickoff_time, broadcast_channel, home_score, away_score")
     .order("kickoff_time", { ascending: true });
 
   return (
@@ -29,6 +30,7 @@ export default async function AdminMatchesPage() {
               <th className="px-4 py-3 font-medium">Pertandingan</th>
               <th className="px-4 py-3 font-medium">Liga</th>
               <th className="px-4 py-3 font-medium">Kick-off</th>
+              <th className="px-4 py-3 font-medium">Skor</th>
               <th className="px-4 py-3 font-medium"></th>
             </tr>
           </thead>
@@ -43,6 +45,13 @@ export default async function AdminMatchesPage() {
                 </td>
                 <td className="px-4 py-3">{match.league}</td>
                 <td className="px-4 py-3">{formatDateTime(match.kickoff_time)}</td>
+                <td className="px-4 py-3">
+                  {isMatchFinished(match) ? (
+                    <span className="font-semibold">{formatMatchResult(match)}</span>
+                  ) : (
+                    <span className="text-muted">-</span>
+                  )}
+                </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
                     <Link href={`/admin/matches/${match.id}`} className="text-primary hover:underline">
@@ -60,7 +69,7 @@ export default async function AdminMatchesPage() {
             ))}
             {!matches?.length && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-muted">
+                <td colSpan={5} className="px-4 py-8 text-center text-muted">
                   Belum ada pertandingan.
                 </td>
               </tr>

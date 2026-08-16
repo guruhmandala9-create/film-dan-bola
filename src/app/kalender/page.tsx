@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
 import { getWatchlistItems } from "@/lib/watchlist/get-watchlist-items";
 import { dateKeyWIB, formatDateHeader, formatTime } from "@/lib/datetime";
+import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 
 type AgendaItem = {
   id: string;
@@ -11,6 +12,7 @@ type AgendaItem = {
   title: string;
   subtitle: string;
   kind: "film" | "match";
+  badge: string;
 };
 
 export default async function KalenderPage() {
@@ -53,14 +55,16 @@ export default async function KalenderPage() {
       title: film.title,
       subtitle: `${film.cinema_name} — ${film.city}`,
       kind: "film" as const,
+      badge: formatTime(film.showtime),
     })),
     ...matches.map((match) => ({
       id: match.id,
       href: `/jadwal-bola/${match.id}`,
       when: match.kickoff_time,
       title: `${match.home_team} vs ${match.away_team}`,
-      subtitle: match.league,
+      subtitle: isMatchFinished(match) ? `${match.league} · Selesai` : match.league,
       kind: "match" as const,
+      badge: isMatchFinished(match) ? formatMatchResult(match) : formatTime(match.kickoff_time),
     })),
   ].sort((a, b) => a.when.localeCompare(b.when));
 
@@ -101,7 +105,7 @@ export default async function KalenderPage() {
                             : "bg-secondary text-secondary-foreground"
                         }`}
                       >
-                        {formatTime(item.when)}
+                        {item.badge}
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate font-medium">{item.title}</span>

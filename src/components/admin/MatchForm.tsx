@@ -13,6 +13,8 @@ export default function MatchForm({
     away_team?: string;
     broadcast_channel?: string | null;
     kickoff_time?: string;
+    home_score?: number | null;
+    away_score?: number | null;
   };
   submitLabel: string;
 }) {
@@ -70,6 +72,29 @@ export default function MatchForm({
           className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
         />
       </label>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="flex flex-col gap-1 text-sm">
+          Skor tuan rumah (isi setelah selesai)
+          <input
+            type="number"
+            name="home_score"
+            min={0}
+            defaultValue={defaultValues?.home_score ?? ""}
+            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          />
+        </label>
+        <label className="flex flex-col gap-1 text-sm">
+          Skor tim tamu (isi setelah selesai)
+          <input
+            type="number"
+            name="away_score"
+            min={0}
+            defaultValue={defaultValues?.away_score ?? ""}
+            className="rounded-md border border-border bg-background px-3 py-2 outline-none focus:border-primary"
+          />
+        </label>
+      </div>
 
       <label className="flex flex-col gap-1 text-sm">
         Saluran siaran (opsional)

@@ -35,6 +35,8 @@ export async function getWatchlistItems(userId: string) {
       away_team: string;
       kickoff_time: string;
       broadcast_channel: string | null;
+      home_score: number | null;
+      away_score: number | null;
     }>,
   };
 }

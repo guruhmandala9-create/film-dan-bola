@@ -1,8 +1,9 @@
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
-import { ALL_TEAMS } from "@/lib/constants";
+import { ALL_TEAMS, LEAGUES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/datetime";
+import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 import WatchlistButton from "@/components/WatchlistButton";
 import SearchBox from "@/components/SearchBox";
 
@@ -41,6 +42,14 @@ export default async function JadwalBolaPage({
     watchlistedIds = new Set(watchlist?.map((w) => w.item_id));
   }
 
+  const byLeague = new Map<string, NonNullable<typeof matches>>();
+  for (const match of matches ?? []) {
+    if (!byLeague.has(match.league)) byLeague.set(match.league, []);
+    byLeague.get(match.league)!.push(match);
+  }
+  const leagueGroups = LEAGUES.filter((l) => byLeague.has(l)).map((l) => [l, byLeague.get(l)!] as const);
+  const isFiltering = Boolean(team || q);
+
   return (
     <div>
       <PageHeader
@@ -73,38 +82,56 @@ export default async function JadwalBolaPage({
           ))}
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {matches?.map((match) => (
-            <div
-              key={match.id}
-              className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-secondary"
-            >
-              <Link href={`/jadwal-bola/${match.id}`}>
-                <p className="text-xs font-medium uppercase tracking-wide text-muted">{match.league}</p>
-                <p className="mt-1 font-semibold">
-                  {match.home_team} vs {match.away_team}
-                </p>
-                <p className="mt-3 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
-                {match.broadcast_channel && <p className="text-sm text-muted">{match.broadcast_channel}</p>}
-              </Link>
-              <div className="mt-3">
-                <WatchlistButton
-                  itemType="match"
-                  itemId={match.id}
-                  returnTo={returnTo}
-                  userId={user?.id ?? null}
-                  isWatchlisted={watchlistedIds.has(match.id)}
-                  className={`rounded-md border px-3 py-1 text-xs font-medium ${
-                    watchlistedIds.has(match.id)
-                      ? "border-secondary bg-secondary text-secondary-foreground"
-                      : "border-border hover:bg-background"
-                  }`}
-                />
+        <div className="flex flex-col gap-3">
+          {leagueGroups.map(([league, leagueMatches]) => (
+            <details key={league} open={isFiltering} className="group rounded-lg border border-border bg-card">
+              <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4">
+                <span className="font-semibold">{league}</span>
+                <span className="flex items-center gap-2 text-sm text-muted">
+                  {leagueMatches.length} pertandingan
+                  <span className="transition-transform group-open:rotate-180">▾</span>
+                </span>
+              </summary>
+
+              <div className="grid gap-4 border-t border-border p-5 sm:grid-cols-2 lg:grid-cols-3">
+                {leagueMatches.map((match) => {
+                  const finished = isMatchFinished(match);
+                  return (
+                    <div key={match.id} className="rounded-lg border border-border bg-background p-4 transition-colors hover:border-secondary">
+                      <Link href={`/jadwal-bola/${match.id}`}>
+                        <p className="font-semibold">
+                          {match.home_team} vs {match.away_team}
+                        </p>
+                        {finished ? (
+                          <p className="mt-2 text-lg font-bold text-secondary">{formatMatchResult(match)}</p>
+                        ) : (
+                          <p className="mt-2 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
+                        )}
+                        {finished && <p className="text-xs text-muted">Selesai</p>}
+                        {!finished && match.broadcast_channel && <p className="text-sm text-muted">{match.broadcast_channel}</p>}
+                      </Link>
+                      <div className="mt-3">
+                        <WatchlistButton
+                          itemType="match"
+                          itemId={match.id}
+                          returnTo={returnTo}
+                          userId={user?.id ?? null}
+                          isWatchlisted={watchlistedIds.has(match.id)}
+                          className={`rounded-md border px-3 py-1 text-xs font-medium ${
+                            watchlistedIds.has(match.id)
+                              ? "border-secondary bg-secondary text-secondary-foreground"
+                              : "border-border hover:bg-card"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            </div>
+            </details>
           ))}
-          {!matches?.length && (
-            <p className="col-span-full py-12 text-center text-muted">
+          {!leagueGroups.length && (
+            <p className="py-12 text-center text-muted">
               {q
                 ? `Tidak ada pertandingan yang cocok dengan "${q}".`
                 : `Belum ada jadwal pertandingan${team ? ` untuk ${team}` : ""}.`}

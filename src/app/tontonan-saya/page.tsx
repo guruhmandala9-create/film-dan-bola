@@ -5,6 +5,7 @@ import WatchlistButton from "@/components/WatchlistButton";
 import { createClient } from "@/lib/supabase/server";
 import { getWatchlistItems } from "@/lib/watchlist/get-watchlist-items";
 import { formatDateTime } from "@/lib/datetime";
+import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 
 export default async function TontonanSayaPage() {
   const supabase = await createClient();
@@ -73,7 +74,11 @@ export default async function TontonanSayaPage() {
                     <p className="mt-1 font-semibold">
                       {match.home_team} vs {match.away_team}
                     </p>
-                    <p className="mt-3 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
+                    {isMatchFinished(match) ? (
+                      <p className="mt-3 text-lg font-bold text-secondary">{formatMatchResult(match)}</p>
+                    ) : (
+                      <p className="mt-3 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
+                    )}
                   </Link>
                   <div className="mt-3">
                     <WatchlistButton
