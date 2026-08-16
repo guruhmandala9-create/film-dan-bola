@@ -3,14 +3,15 @@
 Diturunkan dari [prd.md](prd.md). Kerjakan berurutan per fase — jangan lompat ke fase berikutnya sebelum diminta.
 
 ## Fase 1 — Persiapan & Tampilan Dasar
-Status: **Sebagian selesai — menunggu kredensial Supabase dari kamu**
+Status: **Selesai, kecuali satu langkah manual yang butuh akses dashboard Supabase kamu**
 
 **Setup Proyek & Database**
 - [x] Install Node.js dan siapkan editor kode
 - [x] Buat project baru dengan Next.js (git lokal sudah terinisialisasi otomatis)
 - [x] Hubungkan project ke GitHub — https://github.com/guruhmandala9-create/film-dan-bola
-- [ ] Buat akun Supabase, hubungkan ke Next.js — menunggu kamu buat project & kirim Project URL + anon key
-- [ ] Rancang skema tabel awal (users, films, matches, watchlist, comments)
+- [x] Buat akun Supabase, hubungkan ke Next.js — project `qmmufzjffjfsrjkzjzvj`, client di `src/lib/supabase/client.ts`, env var terpasang di lokal & Vercel
+- [x] Rancang skema tabel awal (profiles, films, matches, watchlist, comments, reactions) — lihat `supabase/schema.sql`
+- [ ] **Aksi kamu:** jalankan `supabase/schema.sql` di Supabase Dashboard > SQL Editor > New query > Run (aku tidak punya akses dashboard untuk menjalankannya sendiri)
 - [x] Deploy versi kosong/awal proyek ke hosting (Vercel) — live di https://jadwalnonton.vercel.app
 
 **Kerangka Tampilan**
