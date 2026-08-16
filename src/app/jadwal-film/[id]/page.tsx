@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
+import WatchlistButton from "@/components/WatchlistButton";
 
 export default async function FilmDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -16,8 +17,13 @@ export default async function FilmDetailPage({ params }: { params: Promise<{ id:
         &larr; Kembali ke Jadwal Film
       </Link>
 
-      <h1 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{film.title}</h1>
-      <p className="mt-1 text-muted">{film.genre?.join(", ")}</p>
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{film.title}</h1>
+          <p className="mt-1 text-muted">{film.genre?.join(", ")}</p>
+        </div>
+        <WatchlistButton itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
+      </div>
 
       <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
         <div>

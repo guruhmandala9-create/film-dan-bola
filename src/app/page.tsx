@@ -1,6 +1,53 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { formatDateTime } from "@/lib/datetime";
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let profile: { favorite_genres: string[]; favorite_teams: string[] } | null = null;
+  let recommendedFilms: Array<{ id: string; title: string; genre: string[]; cinema_name: string; city: string; showtime: string }> = [];
+  let recommendedMatches: Array<{ id: string; league: string; home_team: string; away_team: string; kickoff_time: string }> = [];
+
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("favorite_genres, favorite_teams")
+      .eq("id", user.id)
+      .maybeSingle();
+    profile = data;
+
+    const now = new Date().toISOString();
+
+    if (profile?.favorite_genres?.length) {
+      const { data: films } = await supabase
+        .from("films")
+        .select("id, title, genre, cinema_name, city, showtime")
+        .overlaps("genre", profile.favorite_genres)
+        .gte("showtime", now)
+        .order("showtime", { ascending: true })
+        .limit(3);
+      recommendedFilms = films ?? [];
+    }
+
+    if (profile?.favorite_teams?.length) {
+      const teamList = profile.favorite_teams.join(",");
+      const { data: matches } = await supabase
+        .from("matches")
+        .select("id, league, home_team, away_team, kickoff_time")
+        .or(`home_team.in.(${teamList}),away_team.in.(${teamList})`)
+        .gte("kickoff_time", now)
+        .order("kickoff_time", { ascending: true })
+        .limit(3);
+      recommendedMatches = matches ?? [];
+    }
+  }
+
+  const hasRecommendations = recommendedFilms.length > 0 || recommendedMatches.length > 0;
+
   return (
     <div>
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
@@ -31,7 +78,42 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+      {hasRecommendations && (
+        <section className="mx-auto max-w-6xl px-4 pb-4 sm:px-6">
+          <h2 className="mb-4 text-xl font-bold tracking-tight">Untukmu</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {recommendedFilms.map((film) => (
+              <Link
+                key={film.id}
+                href={`/jadwal-film/${film.id}`}
+                className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary"
+              >
+                <p className="font-semibold">{film.title}</p>
+                <p className="mt-1 text-sm text-muted">{film.genre?.join(", ")}</p>
+                <p className="mt-3 text-sm">
+                  {film.cinema_name} — {film.city}
+                </p>
+                <p className="text-sm text-primary">{formatDateTime(film.showtime)}</p>
+              </Link>
+            ))}
+            {recommendedMatches.map((match) => (
+              <Link
+                key={match.id}
+                href={`/jadwal-bola/${match.id}`}
+                className="rounded-lg border border-border bg-card p-5 transition-colors hover:border-secondary"
+              >
+                <p className="text-xs font-medium uppercase tracking-wide text-muted">{match.league}</p>
+                <p className="mt-1 font-semibold">
+                  {match.home_team} vs {match.away_team}
+                </p>
+                <p className="mt-3 text-sm text-secondary">{formatDateTime(match.kickoff_time)}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="mx-auto max-w-6xl px-4 pb-16 pt-4 sm:px-6">
         <div className="grid gap-4 sm:grid-cols-3">
           {[
             {

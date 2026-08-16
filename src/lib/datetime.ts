@@ -18,6 +18,32 @@ export function fromJakartaLocalValue(value: string) {
   return new Date(utcMs).toISOString();
 }
 
+export function formatTime(iso: string) {
+  return (
+    new Date(iso).toLocaleString("id-ID", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Asia/Jakarta",
+    }) + " WIB"
+  );
+}
+
+export function dateKeyWIB(iso: string) {
+  const d = new Date(new Date(iso).getTime() + JAKARTA_OFFSET_MINUTES * 60_000);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}`;
+}
+
+export function formatDateHeader(iso: string) {
+  return new Date(iso).toLocaleString("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Jakarta",
+  });
+}
+
 export function formatDateTime(iso: string) {
   const formatted = new Date(iso).toLocaleString("id-ID", {
     weekday: "short",

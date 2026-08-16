@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
+import WatchlistButton from "@/components/WatchlistButton";
 
 export default async function MatchDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -16,10 +17,15 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
         &larr; Kembali ke Jadwal Bola
       </Link>
 
-      <p className="mt-4 text-sm font-medium uppercase tracking-wide text-muted">{match.league}</p>
-      <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
-        {match.home_team} vs {match.away_team}
-      </h1>
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-medium uppercase tracking-wide text-muted">{match.league}</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+            {match.home_team} vs {match.away_team}
+          </h1>
+        </div>
+        <WatchlistButton itemType="match" itemId={match.id} returnTo={`/jadwal-bola/${match.id}`} />
+      </div>
 
       <div className="mt-6 grid gap-4 rounded-lg border border-border bg-card p-5 sm:grid-cols-2">
         <div>
