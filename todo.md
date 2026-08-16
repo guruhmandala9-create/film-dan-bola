@@ -21,7 +21,7 @@ Status: **Selesai**
 - [x] Pastikan tampilan responsif (diverifikasi di viewport desktop 1280px dan mobile 375px, termasuk menu hamburger)
 
 ## Fase 2 — Autentikasi & Data Inti
-Status: **Hampir selesai — tinggal 2 langkah manual kamu di Supabase SQL Editor**
+Status: **Selesai**
 
 **Autentikasi & Onboarding**
 - [x] Buat halaman sign up dan login (email + Google) — `/login`, `/signup`, tombol Google (lihat catatan Login Google di bawah)
@@ -31,9 +31,8 @@ Status: **Hampir selesai — tinggal 2 langkah manual kamu di Supabase SQL Edito
 
 **Panel Admin Sederhana**
 - [x] Buat halaman admin internal (akses terbatas) untuk kelola data film & pertandingan — `/admin`, digerbang oleh `profiles.is_admin`
-- [x] Input data awal: film 1–2 kota besar, jadwal 2–3 liga populer — disiapkan sebagai seed SQL di `supabase/migrations/0002_admin_and_seed.sql`
-- [ ] **Aksi kamu:** jalankan `supabase/migrations/0002_admin_and_seed.sql` di Supabase SQL Editor (menambah kolom `is_admin`, kebijakan tulis admin, dan data awal film/pertandingan)
-- [ ] **Aksi kamu:** setelah punya akun (daftar via `/signup`), jadikan akunmu admin lewat query di akhir file migrasi tadi (ganti dengan emailmu)
+- [x] Input data awal: film 1–2 kota besar, jadwal 2–3 liga populer — `supabase/migrations/0002_admin_and_seed.sql` sudah dijalankan, data terverifikasi live lewat REST API
+- [ ] Cek: sudah jadikan akunmu sendiri admin? (query di baris terakhir `0002_admin_and_seed.sql`) — perlu ini supaya bisa buka `/admin`
 
 **Halaman Jadwal Film & Bola**
 - [x] Daftar film tayang + filter kota/bioskop + detail film — data asli dari Supabase
