@@ -62,28 +62,30 @@ Status: **Selesai**
 - Cron eksternal di cron-job.org memanggil `https://jadwalnonton.vercel.app/api/cron/reminders` tiap 15 menit dengan header `Authorization: Bearer <CRON_SECRET>`
 
 ## Fase 4 — Pencarian & Komunitas Dasar
-Status: belum dimulai
+Status: **Selesai**
 
 **Pencarian**
-- [ ] Kolom pencarian judul film dan nama tim/liga
+- [x] Kolom pencarian judul film dan nama tim/liga — `/jadwal-film`, `/jadwal-bola`, plus pencarian pengguna di `/pengguna`
 
 **Komentar Sederhana**
-- [ ] Kolom komentar di halaman detail film dan pertandingan
-- [ ] Reaksi emoji cepat (opsional)
-- [ ] Fitur report/hide comment untuk moderasi dasar
+- [x] Kolom komentar di halaman detail film dan pertandingan
+- [x] Reaksi emoji cepat
+- [x] Fitur report/hide comment untuk moderasi dasar — `/admin/comments`, sudah termasuk komentar profil pengguna
+
+**Di luar cakupan PRD awal, juga sudah dibangun di fase ini:** sistem profil sosial (username, bio, avatar, komentar wall), pencarian pengguna, katalog film klasik/series/anime via OMDb dengan search-dropdown picker, liga-accordion dengan skor hasil pertandingan, sinkronisasi otomatis football-data.org, dan desain tema terang/gelap penuh.
 
 ## Fase 5 — Uji Coba & Rilis MVP
-Status: belum dimulai
+Status: **Selesai** (kecuali item bisnis yang menunggu Anda)
 
 **Pengujian**
-- [ ] Uji seluruh alur: onboarding → jadwal → tandai → reminder → komentar
-- [ ] Uji tampilan di berbagai ukuran layar (HP, tablet, desktop)
-- [ ] Perbaiki bug dan tampilan yang belum rapi
+- [x] Uji seluruh alur: onboarding → jadwal → tandai → reminder → komentar
+- [x] Uji tampilan di berbagai ukuran layar (HP, tablet, desktop)
+- [x] Perbaiki bug dan tampilan yang belum rapi — 3 bug nyata ditemukan & diperbaiki: stale UI pasca-aksi (revalidatePath hilang di 7 file), gagal sembunyikan komentar (RLS + service-role fix), komentar tersembunyi hilang dari daftar moderasi admin
 
 **Rilis**
-- [ ] Deploy versi final ke domain produksi
-- [ ] Undang sekelompok kecil pengguna awal (beta)
-- [ ] Kumpulkan feedback awal sebagai bahan validasi sebelum lanjut ke V2
+- [x] Deploy versi final ke domain produksi — live di https://jadwalnonton.vercel.app
+- [ ] Undang sekelompok kecil pengguna awal (beta) — **tugas Anda**, bukan sesuatu yang bisa saya kerjakan
+- [ ] Kumpulkan feedback awal sebagai bahan validasi sebelum lanjut ke V2 — **tugas Anda**
 
 ## Roadmap Setelah MVP (tidak wajib, tunggu instruksi)
 - [ ] V2: perluasan kota/liga, room diskusi otomatis, affiliate tiket bioskop, rating & review
