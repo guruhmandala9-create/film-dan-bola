@@ -3,15 +3,15 @@
 Diturunkan dari [prd.md](prd.md). Kerjakan berurutan per fase — jangan lompat ke fase berikutnya sebelum diminta.
 
 ## Fase 1 — Persiapan & Tampilan Dasar
-Status: **Sebagian selesai — menunggu langkah yang butuh akun kamu (GitHub, Supabase, Vercel)**
+Status: **Sebagian selesai — menunggu URL repo GitHub & kredensial Supabase dari kamu**
 
 **Setup Proyek & Database**
 - [x] Install Node.js dan siapkan editor kode
 - [x] Buat project baru dengan Next.js (git lokal sudah terinisialisasi otomatis)
-- [ ] Hubungkan project ke GitHub — butuh kamu buat repo & sambungkan remote
-- [ ] Buat akun Supabase, hubungkan ke Next.js — butuh kamu buat akun & ambil API key
+- [ ] Hubungkan project ke GitHub — menunggu kamu buat repo kosong & kirim URL-nya
+- [ ] Buat akun Supabase, hubungkan ke Next.js — menunggu kamu buat project & kirim Project URL + anon key
 - [ ] Rancang skema tabel awal (users, films, matches, watchlist, comments)
-- [ ] Deploy versi kosong/awal proyek ke hosting (Vercel) — butuh kamu buat akun Vercel
+- [x] Deploy versi kosong/awal proyek ke hosting (Vercel) — live di https://jadwalnonton.vercel.app
 
 **Kerangka Tampilan**
 - [x] Buat layout utama (header, navigasi, footer)
