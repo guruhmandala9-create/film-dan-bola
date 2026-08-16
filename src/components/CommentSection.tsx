@@ -1,0 +1,103 @@
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { postComment, deleteComment, reportComment } from "@/lib/comments/actions";
+
+export default async function CommentSection({
+  itemType,
+  itemId,
+  returnTo,
+}: {
+  itemType: "film" | "match";
+  itemId: string;
+  returnTo: string;
+}) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: comments } = await supabase
+    .from("comments")
+    .select("id, user_id, body, created_at")
+    .eq("item_type", itemType)
+    .eq("item_id", itemId)
+    .eq("is_hidden", false)
+    .order("created_at", { ascending: false });
+
+  const userIds = Array.from(new Set((comments ?? []).map((c) => c.user_id)));
+  const names = new Map<string, string>();
+  if (userIds.length) {
+    const { data: profiles } = await supabase.from("profiles").select("id, display_name").in("id", userIds);
+    profiles?.forEach((p) => names.set(p.id, p.display_name));
+  }
+
+  return (
+    <div className="mt-10">
+      <h2 className="mb-4 font-semibold">Komentar ({comments?.length ?? 0})</h2>
+
+      {user ? (
+        <form action={postComment} className="mb-6 flex flex-col gap-2">
+          <input type="hidden" name="itemType" value={itemType} />
+          <input type="hidden" name="itemId" value={itemId} />
+          <input type="hidden" name="returnTo" value={returnTo} />
+          <textarea
+            name="body"
+            required
+            rows={2}
+            placeholder="Tulis komentar..."
+            className="rounded-md border border-border bg-card px-3 py-2 text-sm outline-none focus:border-primary"
+          />
+          <button
+            type="submit"
+            className="self-start rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+          >
+            Kirim
+          </button>
+        </form>
+      ) : (
+        <p className="mb-6 text-sm text-muted">
+          <Link href={`/login?next=${encodeURIComponent(returnTo)}`} className="underline">
+            Masuk
+          </Link>{" "}
+          untuk berkomentar.
+        </p>
+      )}
+
+      <div className="flex flex-col gap-4">
+        {comments?.map((comment) => (
+          <div key={comment.id} className="rounded-lg border border-border bg-card p-4">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">{names.get(comment.user_id) || "Pengguna"}</p>
+              <p className="text-xs text-muted">
+                {new Date(comment.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "short" })}
+              </p>
+            </div>
+            <p className="mt-1 whitespace-pre-wrap text-sm">{comment.body}</p>
+            {user && (
+              <div className="mt-2 flex gap-3 text-xs">
+                {user.id === comment.user_id ? (
+                  <form action={deleteComment}>
+                    <input type="hidden" name="commentId" value={comment.id} />
+                    <input type="hidden" name="returnTo" value={returnTo} />
+                    <button type="submit" className="text-red-500 hover:underline">
+                      Hapus
+                    </button>
+                  </form>
+                ) : (
+                  <form action={reportComment}>
+                    <input type="hidden" name="commentId" value={comment.id} />
+                    <input type="hidden" name="returnTo" value={returnTo} />
+                    <button type="submit" className="text-muted hover:underline">
+                      Laporkan
+                    </button>
+                  </form>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+        {!comments?.length && <p className="text-sm text-muted">Belum ada komentar.</p>}
+      </div>
+    </div>
+  );
+}

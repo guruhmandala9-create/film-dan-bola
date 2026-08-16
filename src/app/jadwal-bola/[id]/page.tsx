@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
+import ReactionBar from "@/components/ReactionBar";
+import CommentSection from "@/components/CommentSection";
 
 export default async function MatchDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -37,6 +39,9 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           <p className="font-medium">{match.broadcast_channel || "-"}</p>
         </div>
       </div>
+
+      <ReactionBar itemType="match" itemId={match.id} returnTo={`/jadwal-bola/${match.id}`} />
+      <CommentSection itemType="match" itemId={match.id} returnTo={`/jadwal-bola/${match.id}`} />
     </div>
   );
 }

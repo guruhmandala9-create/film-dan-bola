@@ -4,18 +4,26 @@ import { createClient } from "@/lib/supabase/server";
 import { CITIES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
+import SearchBox from "@/components/SearchBox";
 
 export default async function JadwalFilmPage({
   searchParams,
 }: {
-  searchParams: Promise<{ city?: string }>;
+  searchParams: Promise<{ city?: string; q?: string }>;
 }) {
-  const { city } = await searchParams;
+  const { city, q } = await searchParams;
   const supabase = await createClient();
 
   let query = supabase.from("films").select("*").order("showtime", { ascending: true });
   if (city) query = query.eq("city", city);
+  if (q) query = query.ilike("title", `%${q}%`);
   const { data: films } = await query;
+
+  const returnTo = `/jadwal-film${
+    city || q
+      ? `?${new URLSearchParams({ ...(city && { city }), ...(q && { q }) }).toString()}`
+      : ""
+  }`;
 
   const {
     data: { user },
@@ -38,6 +46,8 @@ export default async function JadwalFilmPage({
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <SearchBox action="/jadwal-film" placeholder="Cari judul film..." defaultValue={q} hiddenParams={{ city }} />
+
         <div className="mb-6 flex flex-wrap gap-2">
           <Link
             href="/jadwal-film"
@@ -78,7 +88,7 @@ export default async function JadwalFilmPage({
                 <WatchlistButton
                   itemType="film"
                   itemId={film.id}
-                  returnTo="/jadwal-film"
+                  returnTo={returnTo}
                   userId={user?.id ?? null}
                   isWatchlisted={watchlistedIds.has(film.id)}
                   className={`rounded-md border px-3 py-1 text-xs font-medium ${
@@ -92,7 +102,7 @@ export default async function JadwalFilmPage({
           ))}
           {!films?.length && (
             <p className="col-span-full py-12 text-center text-muted">
-              Belum ada jadwal film{city ? ` untuk ${city}` : ""}.
+              {q ? `Tidak ada film yang cocok dengan "${q}".` : `Belum ada jadwal film${city ? ` untuk ${city}` : ""}.`}
             </p>
           )}
         </div>

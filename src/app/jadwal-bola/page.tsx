@@ -4,18 +4,29 @@ import { createClient } from "@/lib/supabase/server";
 import { ALL_TEAMS } from "@/lib/constants";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
+import SearchBox from "@/components/SearchBox";
 
 export default async function JadwalBolaPage({
   searchParams,
 }: {
-  searchParams: Promise<{ team?: string }>;
+  searchParams: Promise<{ team?: string; q?: string }>;
 }) {
-  const { team } = await searchParams;
+  const { team, q } = await searchParams;
   const supabase = await createClient();
 
   let query = supabase.from("matches").select("*").order("kickoff_time", { ascending: true });
   if (team) query = query.or(`home_team.eq.${team},away_team.eq.${team}`);
+  if (q) {
+    const term = q.replace(/,/g, " ");
+    query = query.or(`home_team.ilike.%${term}%,away_team.ilike.%${term}%,league.ilike.%${term}%`);
+  }
   const { data: matches } = await query;
+
+  const returnTo = `/jadwal-bola${
+    team || q
+      ? `?${new URLSearchParams({ ...(team && { team }), ...(q && { q }) }).toString()}`
+      : ""
+  }`;
 
   const {
     data: { user },
@@ -38,6 +49,8 @@ export default async function JadwalBolaPage({
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <SearchBox action="/jadwal-bola" placeholder="Cari tim atau liga..." defaultValue={q} hiddenParams={{ team }} />
+
         <div className="mb-6 flex flex-wrap gap-2">
           <Link
             href="/jadwal-bola"
@@ -78,7 +91,7 @@ export default async function JadwalBolaPage({
                 <WatchlistButton
                   itemType="match"
                   itemId={match.id}
-                  returnTo="/jadwal-bola"
+                  returnTo={returnTo}
                   userId={user?.id ?? null}
                   isWatchlisted={watchlistedIds.has(match.id)}
                   className={`rounded-md border px-3 py-1 text-xs font-medium ${
@@ -92,7 +105,9 @@ export default async function JadwalBolaPage({
           ))}
           {!matches?.length && (
             <p className="col-span-full py-12 text-center text-muted">
-              Belum ada jadwal pertandingan{team ? ` untuk ${team}` : ""}.
+              {q
+                ? `Tidak ada pertandingan yang cocok dengan "${q}".`
+                : `Belum ada jadwal pertandingan${team ? ` untuk ${team}` : ""}.`}
             </p>
           )}
         </div>

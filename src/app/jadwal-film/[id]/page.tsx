@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
+import ReactionBar from "@/components/ReactionBar";
+import CommentSection from "@/components/CommentSection";
 
 export default async function FilmDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -46,6 +48,9 @@ export default async function FilmDetailPage({ params }: { params: Promise<{ id:
           <p className="mt-1 text-muted">{film.synopsis}</p>
         </div>
       )}
+
+      <ReactionBar itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
+      <CommentSection itemType="film" itemId={film.id} returnTo={`/jadwal-film/${film.id}`} />
     </div>
   );
 }
