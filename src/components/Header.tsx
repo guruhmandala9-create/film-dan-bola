@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { signOut } from "@/lib/auth/actions";
 
 const NAV_LINKS = [
   { href: "/", label: "Beranda" },
@@ -12,7 +13,7 @@ const NAV_LINKS = [
   { href: "/profil", label: "Profil" },
 ];
 
-export default function Header() {
+export default function Header({ user }: { user: { email: string } | null }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -41,6 +42,31 @@ export default function Header() {
             );
           })}
         </nav>
+
+        <div className="hidden items-center gap-2 md:flex">
+          {user ? (
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="rounded-md border border-border px-3 py-2 text-sm font-medium transition-colors hover:bg-card"
+              >
+                Keluar
+              </button>
+            </form>
+          ) : (
+            <>
+              <Link href="/login" className="rounded-md px-3 py-2 text-sm font-medium hover:bg-card">
+                Masuk
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90"
+              >
+                Daftar
+              </Link>
+            </>
+          )}
+        </div>
 
         <button
           type="button"
@@ -77,6 +103,35 @@ export default function Header() {
               </Link>
             );
           })}
+          <div className="mt-2 border-t border-border pt-2">
+            {user ? (
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="block w-full rounded-md px-3 py-2.5 text-left text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
+                >
+                  Keluar ({user.email})
+                </button>
+              </form>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-md px-3 py-2.5 text-sm font-medium text-foreground/70 hover:bg-card hover:text-foreground"
+                >
+                  Masuk
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-md bg-primary px-3 py-2.5 text-sm font-semibold text-primary-foreground"
+                >
+                  Daftar
+                </Link>
+              </div>
+            )}
+          </div>
         </nav>
       )}
     </header>
