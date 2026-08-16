@@ -39,6 +39,13 @@ yarn-error.log*
 # claude code
 .claude/
 
+# local npm workaround for Windows paths with special characters
+# (kept at user-level npm config instead, never project-level — see todo.md)
+.npmrc
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+.env*
