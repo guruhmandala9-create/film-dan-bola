@@ -46,6 +46,16 @@ export default async function JadwalFilmPage({
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
+        <Link
+          href="/film-klasik"
+          className="mb-6 flex items-center justify-between rounded-lg border border-dashed border-border bg-card px-4 py-3 text-sm transition-colors hover:border-primary"
+        >
+          <span>
+            🎞️ Cari film <strong>klasik dunia</strong> lengkap dengan rating IMDb
+          </span>
+          <span className="text-primary">Lihat &rarr;</span>
+        </Link>
+
         <SearchBox action="/jadwal-film" placeholder="Cari judul film..." defaultValue={q} hiddenParams={{ city }} />
 
         <div className="mb-6 flex flex-wrap gap-2">
