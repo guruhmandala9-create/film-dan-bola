@@ -7,20 +7,25 @@ export type OmdbFilm = {
   imdbId: string;
   posterUrl: string | null;
   plot: string;
+  mediaType: "movie" | "series";
 };
 
-export async function fetchOmdbByTitle(title: string, year?: string): Promise<OmdbFilm | null> {
+export async function fetchOmdbByTitle(
+  title: string,
+  options?: { year?: string; type?: "movie" | "series" }
+): Promise<OmdbFilm | null> {
   const apiKey = process.env.OMDB_API_KEY;
   if (!apiKey) throw new Error("OMDB_API_KEY belum diatur");
 
-  const url = `https://www.omdbapi.com/?apikey=${apiKey}&type=movie&t=${encodeURIComponent(title)}${
-    year ? `&y=${encodeURIComponent(year)}` : ""
+  const type = options?.type ?? "movie";
+  const url = `https://www.omdbapi.com/?apikey=${apiKey}&type=${type}&t=${encodeURIComponent(title)}${
+    options?.year ? `&y=${encodeURIComponent(options.year)}` : ""
   }`;
   const res = await fetch(url);
   const data = await res.json();
 
   if (data.Response === "False") {
-    console.error(`OMDb lookup failed for "${title}"${year ? ` (${year})` : ""}: ${data.Error} [http ${res.status}]`);
+    console.error(`OMDb lookup failed for "${title}" (${type})${options?.year ? ` [${options.year}]` : ""}: ${data.Error} [http ${res.status}]`);
     return null;
   }
 
@@ -33,5 +38,6 @@ export async function fetchOmdbByTitle(title: string, year?: string): Promise<Om
     imdbId: data.imdbID,
     posterUrl: data.Poster && data.Poster !== "N/A" ? data.Poster : null,
     plot: data.Plot,
+    mediaType: data.Type === "series" ? "series" : "movie",
   };
 }

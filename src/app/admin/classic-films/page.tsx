@@ -11,7 +11,7 @@ export default async function AdminClassicFilmsPage({
   const supabase = await createClient();
   const { data: films } = await supabase
     .from("classic_films")
-    .select("id, title, year, genre, country, imdb_rating")
+    .select("id, title, year, genre, country, imdb_rating, media_type")
     .order("created_at", { ascending: false });
 
   return (
@@ -36,9 +36,17 @@ export default async function AdminClassicFilmsPage({
             type="text"
             name="title"
             required
-            placeholder="Judul film (mis. Citizen Kane)"
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+            placeholder="Judul film/series (mis. Citizen Kane, Attack on Titan)"
+            className="w-72 rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
           />
+          <select
+            name="type"
+            defaultValue="movie"
+            className="rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:border-primary"
+          >
+            <option value="movie">Film</option>
+            <option value="series">Series / Anime</option>
+          </select>
           <button type="submit" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">
             Tambah dari OMDb
           </button>
@@ -68,6 +76,7 @@ export default async function AdminClassicFilmsPage({
           <thead className="bg-card text-left text-muted">
             <tr>
               <th className="px-4 py-3 font-medium">Judul</th>
+              <th className="px-4 py-3 font-medium">Tipe</th>
               <th className="px-4 py-3 font-medium">Tahun</th>
               <th className="px-4 py-3 font-medium">Genre</th>
               <th className="px-4 py-3 font-medium">Negara</th>
@@ -79,6 +88,7 @@ export default async function AdminClassicFilmsPage({
             {films?.map((film) => (
               <tr key={film.id} className="transition-colors hover:bg-muted-bg">
                 <td className="px-4 py-3 font-medium">{film.title}</td>
+                <td className="px-4 py-3 text-muted">{film.media_type === "series" ? "Series" : "Film"}</td>
                 <td className="px-4 py-3">{film.year}</td>
                 <td className="px-4 py-3 text-muted">{film.genre}</td>
                 <td className="px-4 py-3 text-muted">{film.country}</td>
@@ -95,7 +105,7 @@ export default async function AdminClassicFilmsPage({
             ))}
             {!films?.length && (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted">
+                <td colSpan={7} className="px-4 py-8 text-center text-muted">
                   Belum ada film klasik.
                 </td>
               </tr>

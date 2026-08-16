@@ -16,18 +16,20 @@ function toRow(film: OmdbFilm) {
     imdb_id: film.imdbId,
     poster_url: film.posterUrl,
     plot: film.plot,
+    media_type: film.mediaType,
   };
 }
 
 export async function addClassicFilmByTitle(formData: FormData) {
   const title = String(formData.get("title") ?? "").trim();
+  const type = formData.get("type") === "series" ? "series" : "movie";
   if (!title) redirect("/admin/classic-films?error=Judul%20tidak%20boleh%20kosong");
 
   const supabase = await createClient();
-  const film = await fetchOmdbByTitle(title);
+  const film = await fetchOmdbByTitle(title, { type });
 
   if (!film) {
-    redirect(`/admin/classic-films?error=${encodeURIComponent(`Film "${title}" tidak ditemukan di OMDb`)}`);
+    redirect(`/admin/classic-films?error=${encodeURIComponent(`"${title}" (${type === "series" ? "series" : "film"}) tidak ditemukan di OMDb`)}`);
   }
 
   const { error } = await supabase.from("classic_films").upsert(toRow(film!), { onConflict: "imdb_id" });
@@ -47,7 +49,9 @@ export async function seedClassicBatch(formData: FormData) {
   if (!batch) redirect("/admin/classic-films?error=Batch%20tidak%20valid");
 
   const supabase = await createClient();
-  const results = await Promise.allSettled(batch.map((item) => fetchOmdbByTitle(item.title, item.year)));
+  const results = await Promise.allSettled(
+    batch.map((item) => fetchOmdbByTitle(item.title, { year: item.year, type: "movie" }))
+  );
 
   let added = 0;
   let failed = 0;

@@ -51,7 +51,7 @@ export default async function JadwalFilmPage({
           className="mb-6 flex items-center justify-between rounded-xl border border-dashed border-border bg-card px-4 py-3 text-sm transition-colors hover:border-primary"
         >
           <span>
-            🎞️ Cari film <strong>klasik dunia</strong> lengkap dengan rating IMDb
+            🎞️ Cari <strong>film, series, dan anime klasik dunia</strong> lengkap dengan rating IMDb
           </span>
           <span className="text-primary">Lihat &rarr;</span>
         </Link>
