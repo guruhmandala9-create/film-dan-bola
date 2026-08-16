@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { signUpWithEmail } from "@/lib/auth/actions";
 import GoogleButton from "@/components/GoogleButton";
 import BackButton from "@/components/BackButton";
+
+export const metadata: Metadata = { title: "Daftar" };
 
 export default async function SignupPage({
   searchParams,

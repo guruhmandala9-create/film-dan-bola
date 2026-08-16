@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { signInWithEmail } from "@/lib/auth/actions";
 import GoogleButton from "@/components/GoogleButton";
 import BackButton from "@/components/BackButton";
+
+export const metadata: Metadata = { title: "Masuk" };
 
 export default async function LoginPage({
   searchParams,

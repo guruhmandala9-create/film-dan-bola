@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "@/lib/auth/actions";
 import { updateProfileDetails, uploadAvatar } from "@/lib/profile/actions";
+
+export const metadata: Metadata = { title: "Profil" };
 
 export default async function ProfilPage({
   searchParams,

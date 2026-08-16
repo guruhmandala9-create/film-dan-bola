@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import WatchedButton from "@/components/WatchedButton";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = { title: "Sudah Ditonton" };
 
 export default async function SudahDitontonPage() {
   const supabase = await createClient();

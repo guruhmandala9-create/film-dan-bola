@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
@@ -5,6 +6,8 @@ import { CITIES } from "@/lib/constants";
 import { formatDateTime } from "@/lib/datetime";
 import WatchlistButton from "@/components/WatchlistButton";
 import SearchBox from "@/components/SearchBox";
+
+export const metadata: Metadata = { title: "Jadwal Film" };
 
 export default async function JadwalFilmPage({
   searchParams,

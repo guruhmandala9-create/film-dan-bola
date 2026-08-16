@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
 import { getWatchlistItems } from "@/lib/watchlist/get-watchlist-items";
 import { dateKeyWIB, formatDateHeader, formatTime } from "@/lib/datetime";
 import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
+
+export const metadata: Metadata = { title: "Kalender" };
 
 type AgendaItem = {
   id: string;

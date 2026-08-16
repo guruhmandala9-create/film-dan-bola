@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -6,6 +7,14 @@ import WatchlistButton from "@/components/WatchlistButton";
 import WatchedButton from "@/components/WatchedButton";
 import ReactionBar from "@/components/ReactionBar";
 import CommentSection from "@/components/CommentSection";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: film } = await supabase.from("films").select("title, synopsis").eq("id", id).maybeSingle();
+  if (!film) return { title: "Film tidak ditemukan" };
+  return { title: film.title, description: film.synopsis ?? undefined };
+}
 
 export default async function FilmDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

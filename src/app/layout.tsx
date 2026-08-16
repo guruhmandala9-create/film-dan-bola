@@ -15,10 +15,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://jadwalnonton.vercel.app";
+const SITE_TITLE = "JadwalNonton — Film & Bola";
+const SITE_DESCRIPTION =
+  "Agregator jadwal tayang film bioskop dan jadwal pertandingan sepak bola dalam satu platform. Jangan sampai ketinggalan nonton — film atau bola.";
+
 export const metadata: Metadata = {
-  title: "JadwalNonton — Film & Bola",
-  description:
-    "Agregator jadwal tayang film bioskop dan jadwal pertandingan sepak bola dalam satu platform. Jangan sampai ketinggalan nonton — film atau bola.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_TITLE, template: `%s — JadwalNonton` },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    siteName: "JadwalNonton",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+  },
+  twitter: {
+    card: "summary",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

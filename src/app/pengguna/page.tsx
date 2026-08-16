@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import SearchBox from "@/components/SearchBox";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = { title: "Cari Pengguna" };
 
 export default async function CariPenggunaPage({
   searchParams,

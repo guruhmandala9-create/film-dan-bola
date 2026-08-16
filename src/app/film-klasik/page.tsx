@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import { createClient } from "@/lib/supabase/server";
 import WatchedButton from "@/components/WatchedButton";
+
+export const metadata: Metadata = { title: "Film Klasik" };
 
 function splitList(value: string | null) {
   return (value ?? "")

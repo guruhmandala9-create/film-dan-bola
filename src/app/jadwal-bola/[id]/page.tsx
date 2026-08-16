@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -6,6 +7,14 @@ import { isMatchFinished, formatMatchResult } from "@/lib/match-result";
 import WatchlistButton from "@/components/WatchlistButton";
 import ReactionBar from "@/components/ReactionBar";
 import CommentSection from "@/components/CommentSection";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
+  const { data: match } = await supabase.from("matches").select("home_team, away_team, league").eq("id", id).maybeSingle();
+  if (!match) return { title: "Pertandingan tidak ditemukan" };
+  return { title: `${match.home_team} vs ${match.away_team}`, description: `${match.league} — jadwal dan hasil pertandingan.` };
+}
 
 export default async function MatchDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

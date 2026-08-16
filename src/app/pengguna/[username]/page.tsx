@@ -1,7 +1,20 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ProfileCommentSection from "@/components/ProfileCommentSection";
 import BackButton from "@/components/BackButton";
+
+export async function generateMetadata({ params }: { params: Promise<{ username: string }> }): Promise<Metadata> {
+  const { username } = await params;
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("public_profiles")
+    .select("display_name, bio")
+    .eq("username", username.toLowerCase())
+    .maybeSingle();
+  if (!profile) return { title: "Pengguna tidak ditemukan" };
+  return { title: `@${username}`, description: profile.bio ?? `Profil ${profile.display_name} di JadwalNonton.` };
+}
 
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
