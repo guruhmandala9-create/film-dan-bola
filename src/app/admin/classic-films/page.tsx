@@ -1,12 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
-import { addClassicFilmByTitle, seedClassicCatalog, deleteClassicFilm } from "./actions";
+import { addClassicFilmByTitle, seedClassicBatch, deleteClassicFilm } from "./actions";
+import { CURATED_BATCHES } from "@/lib/classic-films/curated-titles";
 
 export default async function AdminClassicFilmsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; added?: string; seeded?: string; failed?: string }>;
+  searchParams: Promise<{ error?: string; added?: string; seeded?: string; failed?: string; batch?: string }>;
 }) {
-  const { error, added, seeded, failed } = await searchParams;
+  const { error, added, seeded, failed, batch } = await searchParams;
   const supabase = await createClient();
   const { data: films } = await supabase
     .from("classic_films")
@@ -25,11 +26,11 @@ export default async function AdminClassicFilmsPage({
       )}
       {seeded && (
         <p className="mb-4 max-w-xl rounded-md border border-border bg-card px-3 py-2 text-sm text-primary">
-          Selesai isi katalog: {seeded} berhasil{Number(failed) > 0 ? `, ${failed} gagal ditemukan di OMDb` : ""}.
+          Batch {batch}: {seeded} berhasil{Number(failed) > 0 ? `, ${failed} gagal ditemukan di OMDb` : ""}.
         </p>
       )}
 
-      <div className="mb-6 flex flex-wrap gap-3">
+      <div className="mb-6 flex flex-col gap-4">
         <form action={addClassicFilmByTitle} className="flex gap-2">
           <input
             type="text"
@@ -43,11 +44,21 @@ export default async function AdminClassicFilmsPage({
           </button>
         </form>
 
-        <form action={seedClassicCatalog}>
-          <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-card">
-            Isi katalog contoh (18 film dunia)
-          </button>
-        </form>
+        <div>
+          <p className="mb-2 text-sm text-muted">
+            Isi katalog contoh ({CURATED_BATCHES.flat().length} film dunia, dibagi {CURATED_BATCHES.length} batch supaya tidak kena batas waktu server — klik satu-satu berurutan):
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {CURATED_BATCHES.map((batchItems, i) => (
+              <form key={i} action={seedClassicBatch}>
+                <input type="hidden" name="batch" value={i} />
+                <button type="submit" className="rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-card">
+                  Batch {i + 1} ({batchItems.length} film)
+                </button>
+              </form>
+            ))}
+          </div>
+        </div>
       </div>
 
       <p className="mb-3 text-sm text-muted">{films?.length ?? 0} film klasik terdaftar</p>

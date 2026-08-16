@@ -4,27 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { fetchOmdbByTitle, type OmdbFilm } from "@/lib/omdb";
-
-const CURATED_TITLES = [
-  "Citizen Kane",
-  "Casablanca",
-  "Psycho",
-  "Singin' in the Rain",
-  "Seven Samurai",
-  "Spirited Away",
-  "Akira",
-  "Bicycle Thieves",
-  "Life Is Beautiful",
-  "Cinema Paradiso",
-  "Amelie",
-  "The 400 Blows",
-  "Pather Panchali",
-  "Sholay",
-  "Oldboy",
-  "Parasite",
-  "The Third Man",
-  "Pengabdi Setan",
-];
+import { CURATED_BATCHES } from "@/lib/classic-films/curated-titles";
 
 function toRow(film: OmdbFilm) {
   return {
@@ -61,9 +41,13 @@ export async function addClassicFilmByTitle(formData: FormData) {
   redirect(`/admin/classic-films?added=${encodeURIComponent(film!.title)}`);
 }
 
-export async function seedClassicCatalog() {
+export async function seedClassicBatch(formData: FormData) {
+  const batchIndex = Number(formData.get("batch") ?? 0);
+  const batch = CURATED_BATCHES[batchIndex];
+  if (!batch) redirect("/admin/classic-films?error=Batch%20tidak%20valid");
+
   const supabase = await createClient();
-  const results = await Promise.allSettled(CURATED_TITLES.map((title) => fetchOmdbByTitle(title)));
+  const results = await Promise.allSettled(batch.map((item) => fetchOmdbByTitle(item.title, item.year)));
 
   let added = 0;
   let failed = 0;
@@ -80,7 +64,7 @@ export async function seedClassicCatalog() {
 
   revalidatePath("/admin/classic-films");
   revalidatePath("/film-klasik");
-  redirect(`/admin/classic-films?seeded=${added}&failed=${failed}`);
+  redirect(`/admin/classic-films?seeded=${added}&failed=${failed}&batch=${batchIndex + 1}`);
 }
 
 export async function deleteClassicFilm(formData: FormData) {

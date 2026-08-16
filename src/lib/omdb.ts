@@ -9,11 +9,13 @@ export type OmdbFilm = {
   plot: string;
 };
 
-export async function fetchOmdbByTitle(title: string): Promise<OmdbFilm | null> {
+export async function fetchOmdbByTitle(title: string, year?: string): Promise<OmdbFilm | null> {
   const apiKey = process.env.OMDB_API_KEY;
   if (!apiKey) throw new Error("OMDB_API_KEY belum diatur");
 
-  const url = `https://www.omdbapi.com/?apikey=${apiKey}&type=movie&t=${encodeURIComponent(title)}`;
+  const url = `https://www.omdbapi.com/?apikey=${apiKey}&type=movie&t=${encodeURIComponent(title)}${
+    year ? `&y=${encodeURIComponent(year)}` : ""
+  }`;
   const res = await fetch(url);
   const data = await res.json();
 
