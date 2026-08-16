@@ -21,10 +21,10 @@ Status: **Selesai**
 - [x] Pastikan tampilan responsif (diverifikasi di viewport desktop 1280px dan mobile 375px, termasuk menu hamburger)
 
 ## Fase 2 — Autentikasi & Data Inti
-Status: **Kode selesai — menunggu 2 langkah manual kamu di Supabase**
+Status: **Hampir selesai — tinggal 2 langkah manual kamu di Supabase SQL Editor**
 
 **Autentikasi & Onboarding**
-- [x] Buat halaman sign up dan login (email + Google) — `/login`, `/signup`, tombol Google (butuh setup provider, lihat catatan di bawah)
+- [x] Buat halaman sign up dan login (email + Google) — `/login`, `/signup`, tombol Google (lihat catatan Login Google di bawah)
 - [x] Buat sistem sesi login dan tombol logout — Supabase Auth + `@supabase/ssr`, middleware refresh sesi otomatis
 - [x] Buat alur onboarding: kota domisili, tim bola favorit, genre film favorit — `/onboarding`
 - [x] Simpan preferensi onboarding ke database — tersimpan ke tabel `profiles`
@@ -39,8 +39,10 @@ Status: **Kode selesai — menunggu 2 langkah manual kamu di Supabase**
 - [x] Daftar film tayang + filter kota/bioskop + detail film — data asli dari Supabase
 - [x] Daftar pertandingan + filter tim favorit + detail pertandingan — data asli dari Supabase
 
-**Catatan: Login Google**
-Tombol "Lanjutkan dengan Google" sudah ada di kode, tapi providernya belum aktif di Supabase — perlu setup Google OAuth Client ID/Secret di Google Cloud Console lalu dimasukkan ke Supabase Dashboard > Authentication > Providers > Google. Ini butuh akses akun Google Cloud kamu, jadi ditunda dulu; login email/password sudah berfungsi penuh sebagai gantinya.
+**Login Google**
+- [x] Setup OAuth Client ID/Secret di Google Cloud Console (project "Default Gemini Project")
+- [x] Aktifkan provider Google di Supabase Dashboard > Authentication > Providers
+- [x] Diverifikasi live di https://jadwalnonton.vercel.app/login — tombol "Lanjutkan dengan Google" berhasil redirect ke halaman sign-in Google tanpa error
 
 ## Fase 3 — Personalisasi & Interaksi Pengguna
 Status: belum dimulai
