@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { setCommentHidden, setProfileCommentHidden } from "./actions";
 
 export default async function AdminCommentsPage() {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const { data: reports } = await supabase.from("comment_reports").select("comment_id");
   const reportCounts = new Map<string, number>();
