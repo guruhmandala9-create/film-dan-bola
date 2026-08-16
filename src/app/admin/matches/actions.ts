@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { fromJakartaLocalValue } from "@/lib/datetime";
 
 function parseMatchForm(formData: FormData) {
   return {
@@ -10,7 +11,7 @@ function parseMatchForm(formData: FormData) {
     home_team: String(formData.get("home_team") ?? ""),
     away_team: String(formData.get("away_team") ?? ""),
     broadcast_channel: String(formData.get("broadcast_channel") ?? "") || null,
-    kickoff_time: new Date(String(formData.get("kickoff_time"))).toISOString(),
+    kickoff_time: fromJakartaLocalValue(String(formData.get("kickoff_time"))),
   };
 }
 

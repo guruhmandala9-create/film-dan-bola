@@ -61,7 +61,7 @@ export default function MatchForm({
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        Waktu kick-off
+        Waktu kick-off (WIB)
         <input
           type="datetime-local"
           name="kickoff_time"

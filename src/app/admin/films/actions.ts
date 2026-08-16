@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { fromJakartaLocalValue } from "@/lib/datetime";
 
 function parseFilmForm(formData: FormData) {
   return {
@@ -12,7 +13,7 @@ function parseFilmForm(formData: FormData) {
     poster_url: String(formData.get("poster_url") ?? "") || null,
     city: String(formData.get("city") ?? ""),
     cinema_name: String(formData.get("cinema_name") ?? ""),
-    showtime: new Date(String(formData.get("showtime"))).toISOString(),
+    showtime: fromJakartaLocalValue(String(formData.get("showtime"))),
   };
 }
 

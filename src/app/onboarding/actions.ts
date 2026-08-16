@@ -13,7 +13,7 @@ export async function saveOnboarding(formData: FormData) {
 
   const city = String(formData.get("city") ?? "");
   const genres = formData.getAll("genre").map(String);
-  const teams = formData.getAll("team").map(String);
+  const teams = Array.from(new Set(formData.getAll("team").map(String)));
   const displayName = user.email?.split("@")[0] ?? "Pengguna";
 
   const { error } = await supabase.from("profiles").upsert({

@@ -81,7 +81,7 @@ export default function FilmForm({
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        Jam tayang
+        Jam tayang (WIB)
         <input
           type="datetime-local"
           name="showtime"
