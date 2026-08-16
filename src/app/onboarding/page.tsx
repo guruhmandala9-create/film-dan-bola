@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { CITIES, GENRES, TEAMS_BY_LEAGUE } from "@/lib/constants";
 import { saveOnboarding } from "./actions";
+import BackButton from "@/components/BackButton";
 
 export default async function OnboardingPage({
   searchParams,
@@ -28,6 +29,7 @@ export default async function OnboardingPage({
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+      <BackButton />
       <h1 className="text-2xl font-bold tracking-tight">Yuk, atur preferensimu</h1>
       <p className="mt-1 text-muted">
         Supaya homepage bisa menampilkan film dan jadwal bola yang paling relevan buatmu.

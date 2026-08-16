@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signUpWithEmail } from "@/lib/auth/actions";
 import GoogleButton from "@/components/GoogleButton";
+import BackButton from "@/components/BackButton";
 
 export default async function SignupPage({
   searchParams,
@@ -11,6 +12,7 @@ export default async function SignupPage({
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-sm flex-col justify-center px-4 py-12 sm:px-6">
+      <BackButton />
       <h1 className="text-2xl font-bold tracking-tight">Daftar</h1>
       <p className="mt-1 text-sm text-muted">Buat akun untuk mulai menandai film dan jadwal bola favoritmu.</p>
 

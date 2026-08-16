@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signInWithEmail } from "@/lib/auth/actions";
 import GoogleButton from "@/components/GoogleButton";
+import BackButton from "@/components/BackButton";
 
 export default async function LoginPage({
   searchParams,
@@ -11,6 +12,7 @@ export default async function LoginPage({
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-8rem)] max-w-sm flex-col justify-center px-4 py-12 sm:px-6">
+      <BackButton />
       <h1 className="text-2xl font-bold tracking-tight">Masuk</h1>
       <p className="mt-1 text-sm text-muted">Masuk untuk menandai jadwal dan mengatur reminder.</p>
 

@@ -37,8 +37,16 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
+        <script
+          // Runs before paint to avoid a flash of the wrong theme; must
+          // stay in sync with the fallback logic in ThemeToggle.tsx.
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){}`,
+          }}
+        />
         <Header user={user ? { email: user.email ?? "" } : null} isAdmin={isAdmin} />
         <main className="flex-1">{children}</main>
         <Footer />

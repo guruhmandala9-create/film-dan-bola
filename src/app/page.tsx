@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/datetime";
+import HeroBackground from "@/components/HeroBackground";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -50,31 +51,34 @@ export default async function Home() {
 
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
-          Jangan sampai ketinggalan nonton
-          <br />
-          <span className="text-primary">film</span> atau{" "}
-          <span className="text-secondary">bola</span>.
-        </h1>
-        <p className="mt-4 max-w-xl text-muted sm:text-lg">
-          Satu tempat untuk cek jadwal tayang film bioskop dan jadwal pertandingan
-          sepak bola favoritmu — lengkap dengan reminder, kalender gabungan, dan
-          ruang diskusi sesama penggemar.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/jadwal-film"
-            className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
-          >
-            Lihat Jadwal Film
-          </Link>
-          <Link
-            href="/jadwal-bola"
-            className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
-          >
-            Lihat Jadwal Bola
-          </Link>
+      <section className="relative overflow-hidden">
+        <HeroBackground />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            Jangan sampai ketinggalan nonton
+            <br />
+            <span className="text-primary">film</span> atau{" "}
+            <span className="text-secondary">bola</span>.
+          </h1>
+          <p className="mt-4 max-w-xl text-muted sm:text-lg">
+            Satu tempat untuk cek jadwal tayang film bioskop dan jadwal pertandingan
+            sepak bola favoritmu — lengkap dengan reminder, kalender gabungan, dan
+            ruang diskusi sesama penggemar.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              href="/jadwal-film"
+              className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
+            >
+              Lihat Jadwal Film
+            </Link>
+            <Link
+              href="/jadwal-bola"
+              className="rounded-lg bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:opacity-90 hover:shadow-md"
+            >
+              Lihat Jadwal Bola
+            </Link>
+          </div>
         </div>
       </section>
 

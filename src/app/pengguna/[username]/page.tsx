@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ProfileCommentSection from "@/components/ProfileCommentSection";
+import BackButton from "@/components/BackButton";
 
 export default async function PublicProfilePage({ params }: { params: Promise<{ username: string }> }) {
   const { username } = await params;
@@ -32,6 +33,7 @@ export default async function PublicProfilePage({ params }: { params: Promise<{ 
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+      <BackButton />
       <div className="flex items-center gap-4">
         <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border border-border bg-card">
           {profile.avatar_url ? (

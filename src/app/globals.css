@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --background: #fafaf9;
   --foreground: #18181b;
   --card: #ffffff;
@@ -29,7 +30,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --background: #0a0a0a;
     --foreground: #f4f4f5;
     --card: #18181b;
@@ -41,6 +43,35 @@
     --secondary-foreground: #052e12;
     --muted: #a1a1aa;
   }
+}
+
+/* Manual override via ThemeToggle — wins regardless of system preference */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --foreground: #f4f4f5;
+  --card: #18181b;
+  --muted-bg: #27272a;
+  --border: #27272a;
+  --primary: #fb923c;
+  --primary-foreground: #18181b;
+  --secondary: #4ade80;
+  --secondary-foreground: #052e12;
+  --muted: #a1a1aa;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #fafaf9;
+  --foreground: #18181b;
+  --card: #ffffff;
+  --muted-bg: #f4f4f5;
+  --border: #e4e4e7;
+  --primary: #ea580c;
+  --primary-foreground: #ffffff;
+  --secondary: #16a34a;
+  --secondary-foreground: #ffffff;
+  --muted: #71717a;
 }
 
 html {
